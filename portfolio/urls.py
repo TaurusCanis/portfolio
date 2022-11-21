@@ -28,7 +28,7 @@ def render_react_tracker(request, *args, **kwargs):
     return render(request, "tracker-index.html")
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('', homepage_view.IndexView.as_view()),
     path('ecommerce-api/', include(ecommerce_router.router.urls)),
     path('ecommerce-api/', include('ecommerce_backend.urls')),

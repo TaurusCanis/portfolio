@@ -27,7 +27,7 @@ AUTH_USER_MODEL = 'tutor_tracker_backend.User'
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 PRODUCTION = True
 
 # ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(",") if PRODUCTION else ['*']
@@ -35,12 +35,12 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split("
 # CORS_ALLOWED_ORIGINS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(",") if PRODUCTION else [
 #     'http://localhost:3000', 'http://127.0.0.1', 'http://localhost:8000', 'http://127.0.0.1:8000'
 # ]
-CORS_ALLOWED_ORIGINS = ALLOWED_HOSTS
+CORS_ALLOWED_ORIGINS = ["http://" + host for host in ALLOWED_HOSTS]
 
 # Application definition
 
 INSTALLED_APPS = [
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
