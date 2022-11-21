@@ -6,7 +6,9 @@ const AuthContext = createContext();
 export default AuthContext;
 
 export function AuthProvider({ children }) {
-    const BASE_URL = "http://127.0.0.1:8000/tracker-api/";
+    const PRODUCTION = true;
+
+    const BASE_URL = PRODUCTION ? "https://andrewdole.com/tracker-api/" : "http://127.0.0.1:8000/tracker-api/";
 
     const [authTokens, setAuthTokens] = useState(() => {
         const token = localStorage.getItem("authTokens");
