@@ -4,7 +4,7 @@ const DataContext = createContext();
 
 export function DataProvider({ children }) {
     const PRODUCTION = true;
-    let BASE_URL = PRODUCTION ? "https://portfolio-projects-app-is9ao.ondigitalocean.app/" 
+    let BASE_URL = PRODUCTION ? "https://andrewdole.com/" 
                               : "http://127.0.0.1:8000/";
 
     const [sessionId, setSessionId] = useState(() => {
