@@ -23,6 +23,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     """
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
+    permission_classes = []
 
     def get_queryset(self):
         qs = Item.objects.all()
@@ -39,6 +40,7 @@ class ItemVariantViewSet(viewsets.ModelViewSet):
     queryset = ItemVariant.objects.all()
     serializer_class = ItemVariantSerializer
     lookup_field = "item_id"
+    permission_classes = []
 
 class OrderViewSet(viewsets.ModelViewSet):
     """
@@ -209,6 +211,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
     """
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
+    permission_classes = []
 
 class StripePaymentIntent(APIView):
     permission_classes = []
