@@ -13,7 +13,7 @@ from ecommerce_backend.serializers import (
 import uuid, os, stripe
 from rest_framework.exceptions import PermissionDenied
 
-stripe.api_key = os.environ.get("STRIPE_SK_TEST") # This needs to be stored in ENV
+stripe.api_key = os.environ.get("STRIPE_SK_TEST") 
 endpoint_secret = os.environ.get("STRIPE_ENDPOINT_SECRET_TEST")
 # DOMAIN_BASE = "http://localhost:3000/"
 
@@ -51,14 +51,11 @@ class OrderViewSet(viewsets.ModelViewSet):
     lookup_field = "session_id"
 
     def list(self, *args, **kwargs):
-        print("self.request.user: ", self.request.user, " staff: ", self.request.user.is_staff)
         if not self.request.user.is_staff:
             raise PermissionDenied(detail="List of Orders is only accessible to Staff.")
         super().list(*args, **kwargs)
 
     def get_object(self):
-        print("GET_OBJECT")
-        print("DATA: ", self.request.data)
         order = super().get_object()
         self.update_total(order)
         return order
@@ -71,10 +68,8 @@ class OrderViewSet(viewsets.ModelViewSet):
     These functions handle order CREATION.
     """
     def perform_create(self, serializer):
-        print("PERFORM_CREATE")
         try:
             session_id = self.create_session_id()
-            print("session_id: ", session_id, " length: ", len(str(session_id)))
             order_item = self.create_order_item(session_id)
             serializer.save(session_id=session_id,items=[order_item])
         except Exception as e:
@@ -98,7 +93,6 @@ class OrderViewSet(viewsets.ModelViewSet):
     These functions handle order UPDATE.
     """
     def perform_update(self, serializer):
-        print("PERFORM_UPDATE")
         session_id = self.request.data.get('sessionId')
         order = self.get_object()
 
@@ -223,9 +217,7 @@ class StripePaymentIntent(APIView):
     def post(self, *args, **kwargs):
         try:
             data = self.request.data
-            print("DATA: ", data)
             session_id = self.kwargs.get('session_id')
-            print("SESSION_ID: ", session_id)
             # Create a PaymentIntent with the order amount and currency
             intent = stripe.PaymentIntent.create(
                 amount=self.calculate_order_amount(session_id),
@@ -238,8 +230,6 @@ class StripePaymentIntent(APIView):
             order = self.get_order(session_id)
             order.braintree_transaction_id=intent['id'] 
             order.save()
-            print("SUCCESS")
-            print("PAYMENT_INTENT: ", intent)
             return Response({
                 'success': True,
                 'clientSecret': intent['client_secret']
@@ -266,9 +256,7 @@ class StripeWebhook(APIView):
     http_method_names = ['post']
 
     def post(self, *args, **kwargs):
-        print("******StripeWebhook******")
         payload = self.request.body.decode('utf-8')
-        print("PAYLOAD: ", payload)
 
         if endpoint_secret:
             event = self.verify_event(payload) 
@@ -295,13 +283,11 @@ class StripeWebhook(APIView):
 
     def handle(self, event):
         if event and event['type'] == 'payment_intent.succeeded':
-            print('*******payment_intent.succeeded*******')
             payment_intent = event['data']['object']  # contains a stripe.PaymentIntent
             print('Payment for {} succeeded'.format(payment_intent['amount']))
             # Then define and call a method to handle the successful payment intent.
             self.handle_payment_intent_succeeded(event)
         elif event['type'] == 'payment_intent.payment_failed':
-            print('***********payment_method.payment_failed***********')
             payment_method = event['data']['object']  # contains a stripe.PaymentMethod
             # Then define and call a method to handle the successful attachment of a PaymentMethod.
             self.handle_payment_intent_failed(payment_method)
@@ -334,7 +320,6 @@ class StripeWebhook(APIView):
         return order[0]
 
     def get_order(self, stripe_intent_id):
-        print("stripe_intent_id: ", stripe_intent_id)
         return Order.objects.filter(braintree_transaction_id=stripe_intent_id)
 
     def create_confirmation_number(self):
