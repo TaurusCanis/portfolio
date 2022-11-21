@@ -97,7 +97,7 @@ export function DataProvider({ children }) {
         setCart({});
     }
 
-    const contextData = { cart, addToCart, sessionId, clearSessionId, BASE_URL };
+    const contextData = { cart, addToCart, sessionId, clearSessionId, BASE_URL, PRODUCTION };
     
     return (
         <DataContext.Provider value={ contextData }>
