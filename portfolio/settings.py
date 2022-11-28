@@ -27,15 +27,20 @@ AUTH_USER_MODEL = 'tutor_tracker_backend.User'
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-PRODUCTION = True
+DEBUG = os.getenv("DEBUG", False)
+# DEBUG = True 
+PRODUCTION = os.getenv("PRODUCTION", True) 
+# PRODUCTION = False
 
 # ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(",") if PRODUCTION else ['*']
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOW", "127.0.0.1,localhost,localhost:3000").split(",")
 # CORS_ALLOWED_ORIGINS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(",") if PRODUCTION else [
 #     'http://localhost:3000', 'http://127.0.0.1', 'http://localhost:8000', 'http://127.0.0.1:8000'
 # ]
 CORS_ALLOWED_ORIGINS = ["http://" + host for host in ALLOWED_HOSTS]
+
+print("ALLOWED_HOSTS: ", ALLOWED_HOSTS)
+print("CORS_ALLOWED_ORIGINS: ", CORS_ALLOWED_ORIGINS)
 
 # Application definition
 
@@ -51,6 +56,7 @@ INSTALLED_APPS = [
     'homepage.apps.HomepageConfig',
     'ecommerce_backend.apps.EcommerceBackendConfig',
     'tutor_tracker_backend.apps.TutorTrackerBackendConfig',
+    'test_prep_backend.apps.TestPrepBackendConfig',
     'rest_framework.authtoken',
 ]
 
@@ -96,9 +102,17 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 
 if not PRODUCTION:
     DATABASES = {
+        # 'default': {
+        #     'ENGINE': 'django.db.backends.sqlite3',
+        #     'NAME': BASE_DIR / 'db.sqlite3',
+        # }
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('LOCAL_DB_NAME'),
+            'USER': os.environ.get('LOCAL_DB_USER'),
+            'PASSWORD': os.environ.get('LOCAL_DB_PASSWORD'),
+            'HOST': os.environ.get('LOCAL_DB_HOST'),
+            'PORT': os.environ.get('LOCAL_DB_PORT'),
         }
     }
 elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
@@ -164,3 +178,10 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated', )
 }
+
+EMAIL_HOST = 'smtp.gmail.com' 
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get("TCR_USER", "tauruscanisrex@gmail.com") 
+EMAIL_HOST_PASSWORD = os.environ.get("TCR_PASSWORD") 
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
