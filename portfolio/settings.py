@@ -33,7 +33,7 @@ PRODUCTION = os.getenv("PRODUCTION", True)
 # PRODUCTION = False
 
 # ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(",") if PRODUCTION else ['*']
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOW", "127.0.0.1,localhost,localhost:3000").split(",")
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,localhost:3000").split(",")
 # CORS_ALLOWED_ORIGINS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(",") if PRODUCTION else [
 #     'http://localhost:3000', 'http://127.0.0.1', 'http://localhost:8000', 'http://127.0.0.1:8000'
 # ]
