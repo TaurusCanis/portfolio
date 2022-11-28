@@ -35,7 +35,11 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,localhost
 # CORS_ALLOWED_ORIGINS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(",") if PRODUCTION else [
 #     'http://localhost:3000', 'http://127.0.0.1', 'http://localhost:8000', 'http://127.0.0.1:8000'
 # ]
-CORS_ALLOWED_ORIGINS = ["http://" + host for host in ALLOWED_HOSTS]
+
+if PRODUCTION:
+    CORS_ALLOWED_ORIGINS = ["https://" + host for host in ALLOWED_HOSTS]
+else:
+    CORS_ALLOWED_ORIGINS = ["http://" + host for host in ALLOWED_HOSTS]
 
 print("ALLOWED_HOSTS: ", ALLOWED_HOSTS)
 print("CORS_ALLOWED_ORIGINS: ", CORS_ALLOWED_ORIGINS)
