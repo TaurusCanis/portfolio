@@ -55,9 +55,11 @@ export default function EditAppointment() {
                 const date_time = res.date_time.split("T");
                 const day = date_time[0]
                 const time = date_time[1].split("-")[0].split("Z")[0];
+                console.log("RES: ", res);
+                const { appointment_note, ...rest } = res;
                 handleFieldChange({
                     
-                    ...fields, ...res,
+                    ...fields, ...rest,
                     date: day,
                     time: time,
                 });

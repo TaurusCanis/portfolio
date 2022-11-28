@@ -56,6 +56,7 @@ export function getCustomers(users, setUsers) {
   }
 
   export function validateForm(fields) {
+    console.log("fields: ", fields)
     for (const value in fields) {
         if (fields[value].length === 0) return false;
     }

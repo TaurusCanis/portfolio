@@ -1,17 +1,20 @@
 from django.shortcuts import render
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
-from rest_framework.decorators import permission_classes
+from rest_framework.decorators import permission_classes, action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from .serializers import (
-    UserSerializer, CustomerSerializer, AppointmentSerializer, PaymentSerializer
+    UserSerializer, CustomerSerializer, AppointmentSerializer, PaymentSerializer,
+    AppointmentNoteSerializer
 )
 from .models import (
-    Customer, Appointment, Payment
+    Customer, Appointment, Payment, AppointmentNote
 )
 from django.db.models import F
 from decimal import Decimal
+from django.core.mail import send_mail
+import datetime
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -76,8 +79,21 @@ class AppointmentViewSet(viewsets.ModelViewSet):
     serializer_class = AppointmentSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    # Formatting keys/values to exclude (when necessary) Appointments that have an associated 
+    # AppointmentNote alreay created 
+    def format_key(self, key, value):
+        if value in ["null", "None"]:
+            return f'{key}__isnull'
+        return key
+
+    def format_value(self, value):
+        if value in ["null", "None"]:
+            return True 
+        return value
+
     def get_queryset(self):
-        return Appointment.objects.filter(customer__user=self.request.user).order_by('date_time')
+        query_args = { self.format_key(key, value): self.format_value(value) for key, value in self.request.query_params.items() } 
+        return Appointment.objects.filter(customer__user=self.request.user, **query_args).order_by('date_time')
 
     def get_customer(self, customer_id):
         customer = Customer.objects.get(id=customer_id)
@@ -156,3 +172,50 @@ class PaymentViewSet(viewsets.ModelViewSet):
         customer = self.get_customer(customer_id)
         customer.current_balance = F('current_balance') + payment_delta
         customer.save()
+
+class AppointmentNoteViewSet(viewsets.ModelViewSet):
+    serializer_class = AppointmentNoteSerializer 
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get_object(self):
+        return AppointmentNote.objects.get(id=self.kwargs.get('pk'))
+    
+    def retrieve(self, request, *args, **kwargs):
+        appointment = self.get_appointment({ "appointment_notes": self.kwargs.get('pk') })
+        serializer = AppointmentSerializer(appointment)
+        return Response(serializer.data)
+
+    def get_queryset(self):
+        return AppointmentNote.objects.filter(appointment__customer__user=self.request.user)
+
+    def get_appointment(self, kwargs):
+        return Appointment.objects.get(**kwargs)
+
+    def perform_create(self, serializer):
+        appointment = self.get_appointment({ "id": self.request.data.get('appointment') })
+        serializer.save(appointment=appointment)
+        return
+
+    @action(detail=True, methods=['post'])
+    def send_appointment_note_email(self, request, *args, **kwargs):
+        appointment = self.get_appointment({ "appointment_notes": self.kwargs.get('pk') })
+        try:
+            send_mail(
+                f'Session Summary - {appointment.__str__()}',
+                f'{appointment.appointment_notes.first().text}',
+                'tauruscanisrex@gmail.com',
+                [f'{appointment.customer.email_primary}'],
+                fail_silently=False,
+            )
+            self.update_appointment_note_details()
+            return Response()
+        except Exception as e:
+            print("Email failed to send: ", e)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def update_appointment_note_details(self):
+        appointment_note = self.get_object()
+        appointment_note.status='C'
+        appointment_note.date_sent=datetime.datetime.now()
+        appointment_note.save()
+        return

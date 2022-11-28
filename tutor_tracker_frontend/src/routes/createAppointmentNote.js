@@ -5,6 +5,7 @@ import { useAppContext } from "../util/context";
 import AuthContext from "../context/AuthContext";
 import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import SelectInput from "../components/SelectInput";
 
 export default function CreateAppointmentNote() {
     let params = useParams();
@@ -13,9 +14,14 @@ export default function CreateAppointmentNote() {
     const [appointment, setAppointment] = useState({});
     const [date, setDate] = useState();
     const [time, setTime] = useState();
-    const { authTokens } = useContext(AuthContext);
+    const { authTokens, BASE_URL } = useContext(AuthContext);
     const [isLoading, setIsLoading] = useState(true);
     const [note, setNote] = useState("");
+    const [appointments, setAppointments] = useState([]);
+    const [appointmentId, setAppointmentId] = useState();
+    // const [fields, handleFieldChange] = useFormFields({
+    //     "appointment_id": ""
+    // });
 
     function updateStates(res) {
         setAppointment(res);
@@ -25,20 +31,35 @@ export default function CreateAppointmentNote() {
         return;
     }
 
-    try {
-        useEffect(() => getData((res) => {
-            updateStates(res);
+    // try {
+    //     useEffect(() => getData((res) => {
+    //         updateStates(res);
+    //         setIsLoading(false);
+    //     }, `appointments/${params.appointmentId}`, authTokens), []);
+    // } catch (e) {
+    //     console.log("ERROR: " + e);
+    // }
+
+    useEffect(() => {
+        fetch(`${BASE_URL}appointments?appointment_notes=null`, {
+            method: "GET",
+            headers: {
+                'Authorization': `Token ${authTokens}`
+            }
+        })
+        .then(res => res.json())
+        .then(json => {
+            console.log("JSON: ", json)
+            setAppointments(json);
             setIsLoading(false);
-        }, `appointments/${params.appointmentId}`, authTokens), []);
-    } catch (e) {
-        console.log("ERROR: " + e);
-    }
+        });
+    }, []);
 
     function handleSubmit(e) {
         e.preventDefault();
         let dateFormatted = new Date(date);
         try {
-            fetch('http://127.0.0.1:8000/tracker/appointment_notes/', {
+            fetch(BASE_URL + 'appointment_notes/', {
                 method: "POST",
                 headers: {
                     'Authorization': `Token ${authTokens}`,
@@ -46,16 +67,15 @@ export default function CreateAppointmentNote() {
                     'Content-Type': 'application/json;charset=UTF-8'
                 },
                 body: JSON.stringify({
-                    appointment: appointment.id,
+                    // appointment: appointment.id,
+                    appointment: appointmentId,
                     text: note,
                     status: "I",
-                    date: dateFormatted.toISOString().split("T")[0],
+                    // date: dateFormatted.toISOString().split("T")[0],
                 })
             })
-            .then((response) => response.json())
-            .then(res => {
-                console.log(res);
-                navigate(`/appointments/${params.appointmentId}/`);
+            .then((response) => {
+                if (response.ok) navigate("/dashboard")
             })
         } catch (e) {
             alert("Error!: " + e);
@@ -63,14 +83,38 @@ export default function CreateAppointmentNote() {
         return;
     }
 
+    // function updateAppointmentId(e) {
+    //     console.log("E: ", e);
+    //     setAppointmentId(e.target.id)
+    // }
+
     return (
         <>
             <h2>Create Appointment Note</h2>
-            {appointment.customer} - {date} {time}
-            <form onSubmit={handleSubmit}>
-                <input type="textarea" value={note} onChange={(e) => setNote(e.target.value)}></input>
-                <input type="submit" value="Save"></input>
-            </form>
+            {
+                !isLoading && appointments.length > 0 &&
+                <>
+                {/* {appointment.customer} - {date} {time} */}
+                <form onSubmit={handleSubmit}>
+                    <select id="appointment_select" value={appointmentId} onChange={(e) => setAppointmentId(e.target.value)}>
+                        {/* default/empty option? */}
+                        <option>--Select--</option>
+                        {appointments.map(appointment => 
+                            <option value={appointment.id} key={appointment.id}>{appointment.customer_name} - {appointment.date_time}</option>    
+                        )}
+                    </select>
+                    <input type="textarea" value={note} onChange={(e) => setNote(e.target.value)}></input>
+                    <input type="submit" value="Save"></input>
+                </form>
+                </>
+            }   
+            {
+                !isLoading && appointments.length == 0 &&
+                <>
+                    <h3>No Appointments!</h3>
+                    <button onClick={() => navigate("/createAppointment")}>Create an Appointent</button>
+                </>
+            }
         </>
     )
 }

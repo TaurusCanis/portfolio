@@ -1,11 +1,12 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import AppointmentListRow from "./AppointmentListRow";
 
 
 export default function AppointmentList({ appointments, completed, setDataHasUpdated }) {
     const { BASE_URL, authTokens } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     function handleClick(e) {
         e.preventDefault();
@@ -33,6 +34,10 @@ export default function AppointmentList({ appointments, completed, setDataHasUpd
         return nowISO > dateTime;
     }
 
+    function navigateTo(path) {
+        navigate("/appointment_notes/" + path + "/");
+    }
+
     return (
         <>
         { appointments.map((appointment, i) => (
@@ -40,6 +45,17 @@ export default function AppointmentList({ appointments, completed, setDataHasUpd
             <AppointmentListRow appointment={appointment} />
             { appointment.status == 'S' && dateTimeHasPassed(appointment.date_time) && 
                 <button title="Mark as Complete" id={appointment.id} onClick={handleClick}>C</button>
+            }
+            { appointment.status != 'S' && appointment.appointment_note == null && 
+                <button title="Add Appointment Note" id={appointment.id} onClick={() => navigateTo("create")}>N</button>
+            }
+            {
+                appointment.appointment_note != null && appointment.appointment_note.status == 'I' &&
+                <button title="Edit Appointment Note" id={appointment.id} onClick={() => navigateTo(`${appointment.appointment_note.id}/edit`)}>E</button>
+            }
+            {
+                appointment.appointment_note != null && appointment.appointment_note.status == 'C' &&
+                <button title="View Appointment Note" id={appointment.id} onClick={() => navigateTo(`${appointment.appointment_note.id}/`)}>V</button>
             }
             </div>
         ))}

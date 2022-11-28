@@ -44,6 +44,7 @@ class Customer(models.Model):
     #     return 0.0
 
     def get_last_appointment(self):
+        print("&&&&&&&&")
         return self.appointments.filter(date_time__lte=datetime.datetime.now()).order_by('date_time').first() or None
     
     def get_next_appointment(self):
@@ -64,6 +65,13 @@ class Appointment(models.Model):
     def __str__(self):
         return self.customer.__str__() + ": " + str(self.date_time) # .isoformat().split("T")[0]
 
+    def get_appointment_note(self):
+        print("***get_appointment_note***")
+        try:
+            return self.appointment_notes.get(appointment=self)
+        except:
+            return None
+
 class Payment(models.Model):
     customer = models.ForeignKey(Customer, related_name='payments', on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
@@ -71,3 +79,14 @@ class Payment(models.Model):
 
     def __str__(self):
         return f'Payment - {self.customer} - {self.date}'
+
+class AppointmentNote(models.Model):
+    appointment = models.ForeignKey(Appointment, related_name="appointment_notes", on_delete=models.CASCADE)
+    text = models.CharField(max_length=10000, blank=True, null=True)
+    status = models.CharField(max_length=1, choices=[('I', 'In Progress'), ('S', 'Sent')], default='I')
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_last_action = models.DateField(auto_now=True)
+    date_sent = models.DateField(blank=True, null=True)
+
+    def __str__(self):
+        return f'Appointment Note - {self.appointment.customer.__str__()} - {self.appointment.date_time}'

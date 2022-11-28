@@ -40,6 +40,7 @@ import PrepaidAppointment from "./PrepaidAppointment";
 import Settings from "./Settings";
 import { AppContext } from "../util/context";
 import { useState } from 'react';
+import ViewAppointmentNote from "./viewAppointmentNote";
 
 export default function Links() {
     return (
@@ -61,8 +62,11 @@ export default function Links() {
             <Route path="/appointments/:appointmentId/delete" element={<DeleteAppointment />} />
             <Route path="/appointments/:appointmentId" element={<Appointment />} />
             <Route path="/appointment_notes" element={<AppointmentNotes />} />
-            <Route path="/appointments/:appointmentId/createAppointmentNote" element={<CreateAppointmentNote />} />
-            <Route path="/appointments/:appointmentId/editAppointmentNote" element={<EditAppointmentNote />} />
+            <Route path="/appointment_notes/:appointmentNoteId" element={<ViewAppointmentNote />} />
+            <Route path="appointment_notes/create" element={<CreateAppointmentNote />} />
+            <Route path="appointment_notes/:appointmentNoteId/edit" element={<EditAppointmentNote />} />
+            {/* <Route path="/appointments/:appointmentId/createAppointmentNote" element={<CreateAppointmentNote />} /> */}
+            <Route path="/appointments/:appointmentId/edit" element={<EditAppointmentNote />} />
             <Route path="/statements/create" element={<CreateStatement />} />
             <Route path="/statements" element={<Statements />} />
             <Route path="/statements/:statementId" element={<Statement />} />

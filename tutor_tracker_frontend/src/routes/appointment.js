@@ -114,6 +114,18 @@ export default function Appointment() {
                 } */}
                 <div className="container-h list-row">
                     <CrudButton path={`/appointments/${appointment.id}/edit`} label="Edit Appointment" />
+                    { 
+                        appointment.status != 'S' && appointment.appointment_note == null && 
+                        <CrudButton path={`/appointment_notes/create`} label="Add Appointment Note" />
+                    }
+                    { 
+                        appointment.status != 'S' && appointment.appointment_note != null && appointment.appointment_note.status != 'C' &&
+                        <CrudButton path={`/appointment_notes/${appointment.appointment_note.id}/edit`} label="Edit Appointment Note" />
+                    }
+                    { 
+                        appointment.status != 'S' && appointment.appointment_note != null && appointment.appointment_note.status == 'C' &&
+                        <CrudButton path={`/appointment_notes/${appointment.appointment_note.id}/`} label="View Appointment Note" />
+                    }
                     <CrudButton path={`/appointments/${appointment.id}/delete`} label="Delete Appointment" />
                 </div>
             </div>

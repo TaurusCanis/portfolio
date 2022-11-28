@@ -5,7 +5,7 @@ from django.contrib.auth.models import Group, User
 from rest_framework import serializers
 
 from .models import (
-    Appointment, Customer, Payment 
+    Appointment, Customer, Payment, AppointmentNote
 )
 
 User = get_user_model()
@@ -56,9 +56,21 @@ class UserSerializer(serializers.ModelSerializer):
                 date_time__lte=week_range[1]
             ), many=True).data
 
+class AppointmentNoteSerializer(serializers.ModelSerializer):
+    # appointment = serializers.SerializerMethodField()
+
+    class Meta:
+        model = AppointmentNote
+        fields = '__all__'
+
+    # def get_appointment(self, appointment_note):
+        # return AppointmentSerializer(appointment_note.appointment).data
+
+
 class AppointmentSerializer(serializers.ModelSerializer):
     customer_name = serializers.ReadOnlyField(source='customer.__str__')
     customer_id = serializers.ReadOnlyField(source='customer.id')
+    appointment_note = AppointmentNoteSerializer(source='get_appointment_note', required=False)
     
     class Meta:
         model = Appointment
@@ -82,5 +94,7 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment 
         fields = '__all__'
+
+
 
 
