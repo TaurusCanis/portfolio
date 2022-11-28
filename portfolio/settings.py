@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'homepage.apps.HomepageConfig',
     'ecommerce_backend.apps.EcommerceBackendConfig',
     'tutor_tracker_backend.apps.TutorTrackerBackendConfig',
-    'test_prep_backend.apps.TestPrepBackendConfig',
+    # 'test_prep_backend.apps.TestPrepBackendConfig',
     'rest_framework.authtoken',
 ]
 
