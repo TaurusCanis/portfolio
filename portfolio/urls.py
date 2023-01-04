@@ -19,6 +19,7 @@ from django.shortcuts import render
 from homepage import views as homepage_view
 from ecommerce_backend import routers as ecommerce_router
 from tutor_tracker_backend import routers as tracker_router
+from test_prep_backend import routers as test_prep
 from rest_framework.authtoken import views
 
 def render_react_ecommerce(request, *args, **kwargs):
@@ -26,6 +27,9 @@ def render_react_ecommerce(request, *args, **kwargs):
 
 def render_react_tracker(request, *args, **kwargs):
     return render(request, "tracker-index.html")
+
+def render_react_testprep(request, *args, **kwargs):
+    return render(request, "testprep-index.html")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,4 +41,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     re_path(r'^ecommerce/$', render_react_ecommerce),
     re_path(r'^tracker/$', render_react_tracker),
+    re_path(r'^testprep/$', render_react_testprep),
+    path('test-prep-api/', include(test_prep.router.urls)),
+    path('test-prep-api/', include('test_prep_backend.urls')),
 ]

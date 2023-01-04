@@ -18,7 +18,7 @@ import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-AUTH_USER_MODEL = 'tutor_tracker_backend.User'
+AUTH_USER_MODEL = 'user_auth.User'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -27,11 +27,13 @@ AUTH_USER_MODEL = 'tutor_tracker_backend.User'
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", False) == 'True'
-PRODUCTION = os.getenv("PRODUCTION", True) == 'True'
+# DEBUG = os.getenv("DEBUG", False) == 'True'
+DEBUG = True
+# PRODUCTION = os.getenv("PRODUCTION", True) == 'True'
+PRODUCTION = False
 
 # ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(",") if PRODUCTION else ['*']
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,localhost:3000,andrewdole.com").split(",")
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,localhost:3000,andrewdole.com").split(",") if PRODUCTION else ["*"]
 # CORS_ALLOWED_ORIGINS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(",") if PRODUCTION else [
 #     'http://localhost:3000', 'http://127.0.0.1', 'http://localhost:8000', 'http://127.0.0.1:8000'
 # ]
@@ -39,10 +41,8 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,localhost
 if PRODUCTION:
     CORS_ALLOWED_ORIGINS = ["https://" + host for host in ALLOWED_HOSTS]
 else:
-    CORS_ALLOWED_ORIGINS = ["http://" + host for host in ALLOWED_HOSTS]
-
-print("ALLOWED_HOSTS: ", ALLOWED_HOSTS)
-print("CORS_ALLOWED_ORIGINS: ", CORS_ALLOWED_ORIGINS)
+    # CORS_ALLOWED_ORIGINS = ["http://" + host for host in ALLOWED_HOSTS]
+    CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -58,7 +58,8 @@ INSTALLED_APPS = [
     'homepage.apps.HomepageConfig',
     'ecommerce_backend.apps.EcommerceBackendConfig',
     'tutor_tracker_backend.apps.TutorTrackerBackendConfig',
-    # 'test_prep_backend.apps.TestPrepBackendConfig',
+    'test_prep_backend.apps.TestPrepBackendConfig',
+    'user_auth.apps.UserAuthConfig',
     'rest_framework.authtoken',
 ]
 
