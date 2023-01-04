@@ -83,7 +83,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'templates'), 
             os.path.join(BASE_DIR, 'tracker-build'),
             os.path.join(BASE_DIR, 'ecommerce-build'),
-            
+            os.path.join(BASE_DIR, 'testprep-build'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
