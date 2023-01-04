@@ -60,6 +60,7 @@ class TutorTrackerUserViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer, user)
         headers = self.get_success_headers(serializer.data)
+        print("serializer.data: ", serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     # Save relationship to new AUTH_USER_MODEL instance
