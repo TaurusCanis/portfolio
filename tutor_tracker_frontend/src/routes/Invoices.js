@@ -3,28 +3,43 @@ import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import { getData } from "../util/helpers"
 import { useSearchParams, Link, useLocation } from "react-router-dom";
-import StatementListRow from "../components/StatementListRow";
+import InvoiceListRow from "../components/InvoiceListRow";
 import CustomerName from "../components/CustomerName";
 
 export default function Invoice() {
     const [invoices, setInvoices] = useState();
     const [isLoading, setIsLoading] = useState(true);
-    const { authTokens } = useContext(AuthContext);
+    const { authTokens, BASE_URL } = useContext(AuthContext);
     const location = useLocation();
 
-    try {
-        useEffect(() => getData((res) => {
-            console.log("RES: ", res);
-            setInvoices(res);
+    // try {
+    //     useEffect(() => getData((res) => {
+    //         console.log("RES: ", res);
+    //         setInvoices(res);
+    //         setIsLoading(false);
+    //     }, 'invoices', authTokens), []);
+    // } catch (e) {
+    //     console.log("ERROR: " + e);
+    // }
+
+    useEffect(() => {
+        fetch(`${BASE_URL}invoices/`, {
+            method: "GET",
+            headers: {
+                'Authorization': `Token ${authTokens}`
+            }
+        })
+        .then(res => res.json())
+        .then(json => {
+            console.log("JSON: ", json);
+            setInvoices(json);
             setIsLoading(false);
-        }, 'invoices', authTokens), []);
-    } catch (e) {
-        console.log("ERROR: " + e);
-    }
+        });
+    },[])
 
     return (
         <>
-        { !isLoading &&
+        { !isLoading && invoices ?
         <>
             <h2>Invoices</h2>
             <h3>{ location.state != null && <CustomerName name={location.state.customerName} id={invoices[0].customer} /> }</h3>
@@ -36,11 +51,13 @@ export default function Invoice() {
             <div className="table container-v">
                 {
                     invoices.map((invoice, i) => 
-                        <StatementListRow statement={invoice} key={i} tableDisplay={true}/>
+                        <InvoiceListRow invoice={invoice} key={i} tableDisplay={true}/>
                     )
                 }
             </div>
-            </>
+        </>
+        :
+        <div>No Invoices</div>
         }
         </>
         // <>

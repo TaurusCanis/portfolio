@@ -21,6 +21,9 @@ export default function Navbar() {
             <Link className="nav-item" to="/dashboard">Dashboard</Link> |{" "}
             <Link className="nav-item" to="/appointments">Appointments</Link> |{" "}
             <Link className="nav-item" to="/payments">Payments</Link> 
+            <Link className="nav-item" to="/invoices">Invoices</Link> 
+            <Link className="nav-item" to="/statements">Statements</Link> 
+            <Link className="nav-item" to="/prepayments">Prepayments</Link> 
             {/* <Link className="nav-item" to="/settings">Settings</Link> |{" "} */}
             </>
           }

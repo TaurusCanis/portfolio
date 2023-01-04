@@ -41,25 +41,41 @@ export default function CreateAppointmentNote() {
     // }
 
     useEffect(() => {
-        fetch(`${BASE_URL}appointments?appointment_notes=null`, {
-            method: "GET",
-            headers: {
-                'Authorization': `Token ${authTokens}`
-            }
-        })
-        .then(res => res.json())
-        .then(json => {
-            console.log("JSON: ", json)
-            setAppointments(json);
-            setIsLoading(false);
-        });
+        if (!params.appointmentId) {
+            fetch(`${BASE_URL}appointments?appointment_notes=null`, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Token ${authTokens}`
+                }
+            })
+            .then(res => res.json())
+            .then(json => {
+                console.log("JSON: ", json)
+                setAppointments(json);
+                setIsLoading(false);
+            });
+        } 
+        else {
+            fetch(`${BASE_URL}appointments/${params.appointmentId}/`, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Token ${authTokens}`
+                }
+            })
+            .then(res => res.json())
+            .then(json => {
+                console.log("JSON: ", json)
+                setAppointment(json);
+                setIsLoading(false);
+            });
+        }
     }, []);
 
     function handleSubmit(e) {
         e.preventDefault();
         let dateFormatted = new Date(date);
         try {
-            fetch(BASE_URL + 'appointment_notes/', {
+            fetch(`${BASE_URL}appointment_notes/`, {
                 method: "POST",
                 headers: {
                     'Authorization': `Token ${authTokens}`,
@@ -68,7 +84,7 @@ export default function CreateAppointmentNote() {
                 },
                 body: JSON.stringify({
                     // appointment: appointment.id,
-                    appointment: appointmentId,
+                    appointment: appointmentId || appointment.id,
                     text: note,
                     status: "I",
                     // date: dateFormatted.toISOString().split("T")[0],
@@ -92,29 +108,41 @@ export default function CreateAppointmentNote() {
         <>
             <h2>Create Appointment Note</h2>
             {
-                !isLoading && appointments.length > 0 &&
-                <>
-                {/* {appointment.customer} - {date} {time} */}
-                <form onSubmit={handleSubmit}>
-                    <select id="appointment_select" value={appointmentId} onChange={(e) => setAppointmentId(e.target.value)}>
-                        {/* default/empty option? */}
-                        <option>--Select--</option>
-                        {appointments.map(appointment => 
-                            <option value={appointment.id} key={appointment.id}>{appointment.customer_name} - {appointment.date_time}</option>    
-                        )}
-                    </select>
-                    <input type="textarea" value={note} onChange={(e) => setNote(e.target.value)}></input>
-                    <input type="submit" value="Save"></input>
-                </form>
-                </>
-            }   
-            {
-                !isLoading && appointments.length == 0 &&
+                !isLoading && !params.appointmentId && appointments.length == 0 ?
                 <>
                     <h3>No Appointments!</h3>
                     <button onClick={() => navigate("/createAppointment")}>Create an Appointent</button>
                 </>
+
+                :
+                <>
+                { !isLoading && params.appointmentId &&
+                    <span>Create Appointment Note for {appointment.customer_name} - {appointment.date_time}</span>
+                }
+                <form onSubmit={handleSubmit}>
+                {
+                    !isLoading && appointments.length > 0 &&
+                    <>
+                    {/* {appointment.customer} - {date} {time} */}
+                    
+                        <select id="appointment_select" value={appointmentId} onChange={(e) => setAppointmentId(e.target.value)}>
+                            {/* default/empty option? */}
+                            <option>--Select--</option>
+                            {appointments.map(appointment => 
+                                <option value={appointment.id} key={appointment.id}>{appointment.customer_name} - {appointment.date_time}</option>    
+                            )}
+                        </select>
+                        
+                    
+                    </>
+                } 
+                    <textarea value={note} onChange={(e) => setNote(e.target.value)}></textarea>
+                    <input type="submit" value="Save"></input>
+                </form>
+                </>
             }
+              
+            
         </>
     )
 }

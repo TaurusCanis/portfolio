@@ -104,14 +104,10 @@ export function AuthProvider({ children }) {
     }
 
     function logoutUser() {
-        console.log("FUCK FUCK FUCK")
         setAuthTokens(null);
         localStorage.removeItem("authTokens");
         localStorage.removeItem("userId");
-        console.log("FUCKYOU")
         navigate("/login");
-       
-        console.log("ASSHOLE")
     };
 
     const contextData = {

@@ -89,6 +89,7 @@ export default function Customer() {
                             <PanelRow label="Customer" value={`${customer.last_name}, ${customer.first_name}`} />
                             <PanelRow label="Email" value={customer.email_primary} />
                             <PanelRow label="Current Balance" value={customer.current_balance} />
+                            <PanelRow label="Prepaid Balance" value={customer.prepayment_balance} />
                         </div>
                     </div>
                     <div className="dashboard-panel">

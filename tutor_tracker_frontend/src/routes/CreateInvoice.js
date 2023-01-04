@@ -16,50 +16,88 @@ export default function CreateInvoice() {
     const [customers, setCustomers] = useState();
     const [customerHasChanged, setCustomerHasChanged] = useState(false);
     const [appointments, setAppointments] = useState();
-    const [selectedAppointments, setSelectedAppointments] = useState([]);
+    const [selectedAppointment, setSelectedAppointment] = useState(-1);
     const [isLoading, setIsLoading] = useState(true);
     const [isLoadingAppointments, setIsLoadingAppointments] = useState(true);
-    const { authTokens } = useContext(AuthContext);
-    const [fields, handleFieldChange] = useFormFields({ 
-        customer: "", 
-        startDate: "",
-        endDate: "",
-     });
+    const { authTokens, BASE_URL } = useContext(AuthContext);
+    // const [fields, handleFieldChange] = useFormFields({ 
+    //     appointment: "", 
+    //     amount: 0,
+    //     // startDate: "",
+    //     // endDate: "",
+    //  });
 
-    try {
-        useEffect(() => getData((res) => {
-            setCustomers(res);
-            setIsLoading(false);
-        }, `customers/`, authTokens), []);
-    } catch (e) {
-        console.log("ERROR: " + e);
-    }
+    //  const [invoiceAmount, setInvoiceAmount] = useState(0);
 
-    try {
-        useEffect(() => {
-            if (customerHasChanged) {
-                getData((res) => {
-                    setAppointments(res);
-                    setIsLoadingAppointments(false);
-                    setCustomerHasChanged(false);
-                }, `appointments/`, authTokens, { "customer_id": fields.customer })
+    // try {
+    //     useEffect(() => getData((res) => {
+    //         setCustomers(res);
+    //         setIsLoading(false);
+    //     }, `customers/`, authTokens), []);
+    // } catch (e) {
+    //     console.log("ERROR: " + e);
+    // }
+
+    // try {
+    //     useEffect(() => {
+    //         if (customerHasChanged) {
+    //             getData((res) => {
+    //                 setAppointments(res);
+    //                 setIsLoadingAppointments(false);
+    //                 setCustomerHasChanged(false);
+    //             }, `appointments/`, authTokens, { "customer_id": fields.customer })
+    //         }
+    //     }, [customerHasChanged]);
+    // } catch (e) {
+    //     console.log("ERROR: " + e);
+    // }
+
+    useEffect(() => {
+        fetch(`${BASE_URL}appointments?invoice=None`, {
+            method: "GET",
+            headers: {
+                'Authorization': `Token ${authTokens}`
             }
-        }, [customerHasChanged]);
-    } catch (e) {
-        console.log("ERROR: " + e);
+        })
+        .then(res => res.json())
+        .then(json => {
+            console.log("JSON: ", json);
+            setAppointments(json);
+            setIsLoading(false);
+        })
+    }, []);
+
+    function getAmount() {
+        return appointments.find(appointment => appointment.id == selectedAppointment).fee
     }
 
     function handleSubmit(e) {
         e.preventDefault();
-        setIsLoadingAppointments(true);
-        setCustomerHasChanged(true);
-        return;
+        // setIsLoadingAppointments(true);
+        // setCustomerHasChanged(true);
+        // return;
+        fetch(`${BASE_URL}invoices/`, {
+            method: "POST",
+            headers: {
+                'Authorization': `Token ${authTokens}`,
+                'Accept': 'application/json, text/plain',
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            body: JSON.stringify({
+                appointment: selectedAppointment,
+                amount: getAmount()
+            })
+        })
+        .then(res => {
+            if (res.ok) navigate("/dashboard");
+            else alert("ERROR!");
+        })
     }
 
 
     return (
         <>
-        { !isLoading &&
+        { !isLoading && appointments.length > 0 ?
         <div className="container-v">
             <h2>Create an Invoice</h2>
             <form className="form-single" onSubmit={handleSubmit}>
@@ -71,9 +109,26 @@ export default function CreateInvoice() {
                         <option value={customer.id} key={customer.id}>{customer.last_name}, {customer.first_name}</option>    
                     )}
                 </select> */}
-                <SelectInput label={"customer"} options={customers} fields={fields} handleFieldChange={handleFieldChange} />
-                <TextInput label={"start date"} type={"date"} fields={fields} handleFieldChange={handleFieldChange}/>
-                <TextInput label={"end date"} type={"date"} fields={fields} handleFieldChange={handleFieldChange}/>
+                {/* <SelectInput label={"appointment"} options={appointments} fields={{ "appointment": "" }} handleFieldChange={setSelectedAppointment} /> */}
+                {/* <TextInput label={"start date"} type={"date"} fields={fields} handleFieldChange={handleFieldChange}/>
+                <TextInput label={"end date"} type={"date"} fields={fields} handleFieldChange={handleFieldChange}/> */}
+                <div className="container-h form-row">
+                    <label>Appointments: </label>
+                    <select id="appointment" value={selectedAppointment} onChange={(e) => setSelectedAppointment(e.target.value)}>
+                        {/* default/empty option? */}
+                        <option>--Select--</option>
+                        {appointments.map(option => 
+                            <option value={option.id} key={option.id}>{option.customer_name}, {option.date_time}</option>    
+                        )}
+                    </select>
+                </div>
+                <div className="container-h form-row">
+                    { selectedAppointment != -1 &&
+                        <>
+                            <div>Amount: </div><div>${getAmount()}</div>
+                        </>
+                    }
+                </div>
                 <SubmitButton validateForm={validateForm}/>
                 
                 {/* <label for="start_date">Start Date: </label>
@@ -82,6 +137,7 @@ export default function CreateInvoice() {
                 <input id="end_date" type="date" value={fields.end_date} onChange={(e) => handleFieldChange({ end_date: e.target.value})}></input> */}
                 {/* <input type="submit"></input> */}
             </form>
+            
             { !isLoadingAppointments &&
             <form>
                 <div><input type="submit" value="Create Invoice"></input></div>
@@ -98,6 +154,8 @@ export default function CreateInvoice() {
             </form>
             }
         </div>
+        :
+        <div>No Appointments</div>
         }
         </>
     );

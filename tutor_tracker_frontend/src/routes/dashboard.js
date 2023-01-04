@@ -15,6 +15,7 @@ export default function Dashboard() {
     const [user,setUser] = useState({});
     const [dataHasUpdated, setDataHasUpdated] = useState(false);
     const navigate = useNavigate();
+    const [todaysAppointments, setTodaysAppointments] = useState();
 
     useEffect(() => {
       if (authTokens) {
@@ -48,7 +49,7 @@ export default function Dashboard() {
           { !isLoading && 
           // <div className="container-v">
           <>
-            <h2>Welcome, {user.username}!</h2>
+            <h2>Welcome, {user.user.first_name}!</h2>
             <div className="container-h dashboard-row">
               <div className="dashboard-panel">
                 <h3>Financials</h3>
@@ -64,7 +65,33 @@ export default function Dashboard() {
                 </button>
               </div>
               <div className="dashboard-panel">
-                  <h3>Next Appointment</h3>
+                { user.todays_appointments.length > 0 ?
+                  <>
+                    <h3>{ user.todays_appointments.length } Appointments Scheduled Today</h3>
+                    {user.todays_appointments.map(appointment => (
+                      <div>
+                        <Link key={appointment.id} to={`/appointments/${appointment.id}`}>{appointment.customer_name} - {appointment.date_time}</Link>
+                      </div>
+                    ))}
+                  </>
+                  :
+                  <>
+                    <h3>No Appointments Scheduled Today</h3>
+                    { user.next_appointment.date_time != null ?
+                      <>
+                        <div>{ user.scheduled_appointments.length - user.todays_appointments.length } Appointments Scheduled After Today</div>
+                        <div>Next Appointment: <Link to={`/appointments/${user.next_appointment.id}`}>{user.next_appointment.date_time} - {user.next_appointment.customer_name}</Link></div>
+                      </>
+                      :
+                      <>
+                        <h3>No Upcoming Appointments</h3>
+                      </>
+                    }
+                  </>
+                }
+                <button onClick={() => navigate("/createAppointment")}>Add an Appointment</button>
+                <button onClick={() => navigate("/appointments?status=S")}>View All Upcoming Appointments</button>
+                  {/* <h3>Next Appointment</h3>
                   <div className="dashboard-panel-content">
                       { user.next_appointment.date_time == null ?
                         <div className="container-v panel-value-no-data flex-center">
@@ -87,27 +114,66 @@ export default function Dashboard() {
                           </div>
                         </div>
                       }
-                  </div>
+                  </div> */}
                 </div>
             </div>
           
             <div className="container-h dashboard-row">
               <div className="dashboard-panel">
-                  <h3>This Week's Completed Appointments</h3>
+                <table>
+                  <thead>
+                    <th></th>
+                    <th>This Week</th>
+                    <th>This Month</th>
+                    <th>This Year</th>
+                  </thead>
+                  <tr>
+                    <th>Earned</th>
+                    <td>${ user.revenue_this_week }</td>
+                    <td>${ user.revenue_this_month }</td>
+                    <td>${ user.revenue_this_year }</td>
+                  </tr>
+                  <tr>
+                    <th>Received</th>
+                    <td>${ user.payments_received_this_week }</td>
+                    <td>${ user.payments_received_this_month }</td>
+                    <td>${ user.payments_received_this_year }</td>
+                  </tr>
+                </table>
+                  {/* <h3>This Week's Completed Appointments</h3>
                   { user.completed_appointments_this_week.length > 0 ?
                     <AppointmentList setDataHasUpdated={setDataHasUpdated} appointments={user.completed_appointments_this_week} />
                   :
                     <h4>No Appointments Completed for this Week</h4>
-                  } 
+                  }  */}
               </div>
               <div className="dashboard-panel">
-                <h3>This Week's Upcoming Appointments</h3>
+                { user.undocumented_appointments.length > 0 ?
+                  <>
+                   <h3>Undocumented Appointments</h3>
+                    {user.undocumented_appointments.map(appointment => (
+                      <div>
+                        <Link key={appointment.id} to={`/appointments/${appointment.id}`}>{appointment.customer_name} - {appointment.date_time}</Link>
+                        { appointment.appointment_note == null ?
+                            <button onClick={() => navigate(`/appointment_notes/create/${appointment.id}`)}>Add Note</button>
+                          :
+                            <button>Review and Send Note</button>
+                        }
+                      </div>
+                    ))}
+                  </>
+                  :
+                  <>
+                    <h3>No Undocumented</h3>
+                  </>
+                }
+                {/* <h3>This Week's Upcoming Appointments</h3>
                 { user.upcoming_appointments_this_week.length > 0 ?
                   < AppointmentList setDataHasUpdated={setDataHasUpdated} appointments={user.upcoming_appointments_this_week} />
                 :
                   <h4>No Appointments Scheduled for this Week</h4>
-                }  
-                </div>
+                }   */}
+              </div>
             </div>
           {/* </div> */}
           </>

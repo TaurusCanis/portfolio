@@ -10,7 +10,7 @@ import SubmitButton from "../components/SubmitButton";
 
 export default function CreateStatement() {
     const [customers, setCustomers] = useState();
-    const { authTokens } = useContext(AuthContext);
+    const { authTokens, BASE_URL } = useContext(AuthContext);
     const [fields, handleFieldChange] = useFormFields({ 
         customer: "", 
         start_date: "",
@@ -18,23 +18,35 @@ export default function CreateStatement() {
      });
      let navigate = useNavigate();
 
-     console.log("AUTH TOKENS: " , authTokens);
+    // useEffect(() => {
+    //     try {
+    //         getData((res) => setCustomers(res), "customers", authTokens);
+    //     }
+    //     catch (e) {
+    //         // How to handle error?
+    //         console.log("ERROR: " + e);
+    //     }
+    // }, []);
 
     useEffect(() => {
-        try {
-            getData((res) => setCustomers(res), "customers", authTokens);
-        }
-        catch (e) {
-            // How to handle error?
-            console.log("ERROR: " + e);
-        }
-    }, []);
+        fetch(`${BASE_URL}customers/`, {
+            method: "GET",
+            headers: {
+                'Authorization': `Token ${authTokens}`
+            }
+        })
+        .then(res => res.json())
+        .then(json => {
+            setCustomers(json);
+            return json;
+        })
+    }, [])
 
     function handleSubmit(e) {
         e.preventDefault();
 
         try {
-            fetch('http://127.0.0.1:8000/tracker/statements/', {
+            fetch(`${BASE_URL}statements/`, {
                 method: "POST",
                 headers: {
                     'Authorization': `Token ${authTokens}`,
@@ -42,8 +54,8 @@ export default function CreateStatement() {
                     'Content-Type': 'application/json;charset=UTF-8'
                 },
                 body: JSON.stringify({
-                    customer_id: fields.customer,
-                    customer: fields.customer,
+                    // customer_id: fields.customer,
+                    customer: fields.customers,
                     start_date: fields.start_date,
                     end_date: fields.end_date,
                 })

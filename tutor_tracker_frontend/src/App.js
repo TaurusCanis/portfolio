@@ -5,23 +5,26 @@ import Navbar from "./routes/Navbar";
 import { AppContext } from "./util/context";
 import { AuthProvider } from "./context/AuthContext";
 import Footer from "./components/Footer";
+import Footer2 from "./components/Footer2";
+import Navbar2 from "./components/Navbar2";
 
 export default function App() {
-  // const [isAuthenticated, userHasAuthenticated] = useState(false);
-  // const [token, setToken] = useState();
+
   return (
     <div className="App">
-      {/* <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated, token, setToken }}> */}
       <AuthProvider>
         <div className="container-v">
+        {/* <div> */}
           <Navbar />
+          {/* <Navbar2 /> */}
           <main className="container-v">
+          {/* <main role="main"> */}
             <Routes />
           </main>
+          {/* <Footer2 /> */}
           <Footer />
         </div>
       </AuthProvider>
-      {/* </AppContext.Provider> */}
     </div>
   );
 }

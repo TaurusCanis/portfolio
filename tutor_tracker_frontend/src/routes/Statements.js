@@ -2,17 +2,17 @@ import { useState, useEffect } from "react";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import { getAppointmentStatus, getData } from "../util/helpers"
-import { useSearchParams, Link, useLocation } from "react-router-dom";
-import StatementListRow from "../components/StatementListRow";
+import { useSearchParams, Link, useLocation, useNavigate } from "react-router-dom";
 import CustomerName from "../components/CustomerName";
 
 export default function Statements() {
     const [statements, setStatements] = useState();
     const [isLoading, setIsLoading] = useState(true);
-    const { authTokens } = useContext(AuthContext);
+    const { authTokens, BASE_URL } = useContext(AuthContext);
     let [searchParams, setSearchParams] = useSearchParams();
     const data = {};
     const location = useLocation();
+    let navigate = useNavigate();
 
     console.log("location--->>>>: ", location.state)
 
@@ -24,14 +24,30 @@ export default function Statements() {
 
       console.log("DATA: ", data)
 
-    try {
-        useEffect(() => getData((res) => {
-            setStatements(res);
+    // try {
+    //     useEffect(() => getData((res) => {
+    //         setStatements(res);
+    //         setIsLoading(false);
+    //     }, 'statements', authTokens, data), []);
+    // } catch (e) {
+    //     console.log("ERROR: " + e);
+    // }
+
+    useEffect(() => {
+        fetch(`${BASE_URL}statements/`, {
+            method: "GET",
+            headers: {
+                'Authorization': `Token ${authTokens}`
+            }
+        })
+        .then(res => res.json())
+        .then(json => {
+            setStatements(json);
             setIsLoading(false);
-        }, 'statements', authTokens, data), []);
-    } catch (e) {
-        console.log("ERROR: " + e);
-    }
+            console.log("STATEMENTS: ", json)
+            return json;
+        })
+    }, [])
 
     
 
@@ -50,7 +66,10 @@ export default function Statements() {
             <div className="table container-v">
                 {
                     statements.map((statement, i) => 
-                        <StatementListRow statement={statement} key={i} tableDisplay={true}/>
+                        <div>
+                            {statement.customer_name}: {statement.start_date} - {statement.end_date}: ${statement.balance_due}
+                            <button onClick={() => navigate(`/statements/${statement.id}`)}>View</button>
+                        </div>
                     )
                 }
             </div>

@@ -7,7 +7,7 @@ import SubmitButton from "./SubmitButton";
 
 export default function SignupComponent() {
     const { registerUser } = useContext(AuthContext);
-    const [fields, handleFieldChange] = useFormFields({ first_name: "", last_name: "", email_address: "", username: "", password: "" });
+    const [fields, handleFieldChange] = useFormFields({ first_name: "", last_name: "", email: "", username: "", password: "" });
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -24,7 +24,7 @@ export default function SignupComponent() {
             <form onSubmit={handleSubmit}>
                 <TextInput label="first name" type="text" fields={fields} handleFieldChange={handleFieldChange} />
                 <TextInput label="last name" type="text" fields={fields} handleFieldChange={handleFieldChange} />
-                <TextInput label="email address" type="email" fields={fields} handleFieldChange={handleFieldChange} />
+                <TextInput label="email" type="email" fields={fields} handleFieldChange={handleFieldChange} />
                 <TextInput label="username" type="text" fields={fields} handleFieldChange={handleFieldChange} />
                 <TextInput label="password" type="password" fields={fields} handleFieldChange={handleFieldChange} />
                 <SubmitButton fields={fields}  validateForm={validateForm}/>

@@ -34,18 +34,20 @@ import Invoice from "./Invoice";
 import CreateReceipt from "./CreateReceipt";
 import Receipts from "./Receipts";
 import Receipt from "./Receipt";
-import CreatePrepaidAppointment from "./CreatePrepaidAppointment";
-import PrepaidAppointments from "./PrepaidAppointments";
-import PrepaidAppointment from "./PrepaidAppointment";
+import CreatePrepayment from "./CreatePrepayment";
+import Prepayments from "./Prepayments";
+import Prepayment from "./Prepayment";
 import Settings from "./Settings";
 import { AppContext } from "../util/context";
 import { useState } from 'react';
 import ViewAppointmentNote from "./viewAppointmentNote";
+import Home2 from "./Home2";
 
 export default function Links() {
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
+            {/* <Route path="/" element={<Home />} /> */}
+            <Route path="/" element={<Home2 />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/dashboard" element={<Dashboard />} />
@@ -64,6 +66,7 @@ export default function Links() {
             <Route path="/appointment_notes" element={<AppointmentNotes />} />
             <Route path="/appointment_notes/:appointmentNoteId" element={<ViewAppointmentNote />} />
             <Route path="appointment_notes/create" element={<CreateAppointmentNote />} />
+            <Route path="appointment_notes/create/:appointmentId" element={<CreateAppointmentNote />} />
             <Route path="appointment_notes/:appointmentNoteId/edit" element={<EditAppointmentNote />} />
             {/* <Route path="/appointments/:appointmentId/createAppointmentNote" element={<CreateAppointmentNote />} /> */}
             <Route path="/appointments/:appointmentId/edit" element={<EditAppointmentNote />} />
@@ -82,10 +85,10 @@ export default function Links() {
             <Route path="/invoices/:invoiceId" element={<Invoice />} />
             {/* <Route path="/receipts/create" element={<CreateReceipt/>} />
             <Route path="/receipts" element={<Receipts />} />
-            <Route path="/receipts/:receiptId" element={<Receipt />} />
-            <Route path="/prepaid_appointments/create" element={<CreatePrepaidAppointment />} />
-            <Route path="/prepaid_appointments" element={<PrepaidAppointments />} />
-            <Route path="/prepaid_appointments/:prepaid_appointmentId" element={<PrepaidAppointment />} /> */}
+            <Route path="/receipts/:receiptId" element={<Receipt />} /> */}
+            <Route path="/prepayments/create" element={<CreatePrepayment />} />
+            <Route path="/prepayments" element={<Prepayments />} />
+            <Route path="/prepayments/:prepaymentId" element={<Prepayment />} />
             <Route path="/settings" element={<Settings />} />
             <Route
                 path="*"
