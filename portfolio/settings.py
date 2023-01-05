@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.getenv("DEBUG", False) == 'True'
-DEBUG = True
+DEBUG = False
 # PRODUCTION = os.getenv("PRODUCTION", True) == 'True'
 PRODUCTION = True
 
@@ -122,7 +122,15 @@ elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
     if os.getenv("DATABASE_URL", None) is None:
         raise Exception("DATABASE_URL environment variable not defined")
     DATABASES = {
-        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+        # "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DO_DB_DATABASE'),
+            'USER': os.environ.get('DO_DB_USERNAME'),
+            'PASSWORD': os.environ.get('DO_DB_PASSWORD'),
+            'HOST': os.environ.get('DO_DB_HOST'),
+            'PORT': os.environ.get('DO_DB_PORT'),
+        }
     }
 
 
