@@ -47,7 +47,7 @@ export default function Home2() {
                     <img src={student} alt="#" loading="lazy" />
                     <div class="ui-component-card--feature-content">
                         <h4 class="ui-component-card--feature-title">Track Students</h4>
-                        <p>Lorem ipsum dolor sit amet sed eiusmod tempor incididunt.</p>
+                        <p>Easily manage your roster of students.</p>
                     </div>
                     </div>
                     <div class="ui-component-card ui-component-card--feature">
@@ -55,15 +55,15 @@ export default function Home2() {
                     <img src={calendar} alt="#" loading="lazy" />
                     <div class="ui-component-card--feature-content">
                         <h4 class="ui-component-card--feature-title">Track Appointments</h4>
-                        <p>Lorem ipsum dolor sit amet sed eiusmod tempor incididunt.</p>
+                        <p>Create and organize all of your appointments.</p>
                     </div>
                     </div>
                     <div class="ui-component-card ui-component-card--feature">
                     {/* <img src="https://res.cloudinary.com/uisual/image/upload/assets/graphics/notification.png" alt="#" loading="lazy" /> */}
                     <img src={moneyTransfer} alt="#" loading="lazy" />
                     <div class="ui-component-card--feature-content">
-                        <h4 class="ui-component-card--feature-title">Tracke Revenue</h4>
-                        <p>Lorem ipsum dolor sit amet sed eiusmod tempor incididunt.</p>
+                        <h4 class="ui-component-card--feature-title">Track Revenue</h4>
+                        <p>Know how much you've earned and are owed. Email invoices, statements, and receipts.</p>
                     </div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@ export default function Home2() {
             <section class="ui-section-pricing">
                 <div class="ui-layout-container">
                 <h2>Pricing</h2>
-                <p class="ui-text-intro">Lorem ipsum dolor sit amet.</p>
+                <p class="ui-text-intro">A plan for every tutor</p>
                 {/* <!-- TOGGLE --> */}
                 <input type="radio" name="toggle" id="ui-component-toggle__monthly" checked />
                 <input type="radio" name="toggle" id="ui-component-toggle__yearly" />
@@ -101,7 +101,7 @@ export default function Home2() {
                                 {/* <span>/</span>
                                 <span>month</span> */}
                             </div>
-                            <span><small>Perfect for early-stage startups.</small></span>
+                            <span><small>Perfect for the tutor with a small roster.</small></span>
                             {/* <!-- LIST --> */}
                             <ul class="ui-component-list ui-component-list--pricing ui-layout-grid">
                                 <li class="ui-component-list--item ui-component-list--item-check">3 Students</li>
@@ -122,7 +122,7 @@ export default function Home2() {
                                 <span>/</span>
                                 <span>month</span>
                             </div>
-                            <span><small>Perfect for early-stage startups.</small></span>
+                            <span><small>For the serious tutor.</small></span>
                             {/* <!-- LIST --> */}
                             <ul class="ui-component-list ui-component-list--pricing ui-layout-grid">
                                 <li class="ui-component-list--item ui-component-list--item-check">10 Students</li>
@@ -143,12 +143,12 @@ export default function Home2() {
                                 <span>/</span>
                                 <span>month</span>
                             </div>
-                            <span><small>Perfect for early-stage startups.</small></span>
+                            <span><small>For the professional.</small></span>
                             {/* <!-- LIST --> */}
                             <ul class="ui-component-list ui-component-list--pricing ui-layout-grid">
                                 <li class="ui-component-list--item ui-component-list--item-check">Unlimited Students</li>
-                                <li class="ui-component-list--item ui-component-list--item-check">HTML components.</li>
-                                <li class="ui-component-list--item ui-component-list--item-check">Priority support.</li>
+                                {/* <li class="ui-component-list--item ui-component-list--item-check">HTML components.</li>
+                                <li class="ui-component-list--item ui-component-list--item-check">Priority support.</li> */}
                             </ul>
                         </div>
                         {/* <!-- CTA --> */}
@@ -178,7 +178,8 @@ export default function Home2() {
                         <p class="ui-section-faq--answer">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                         </div>
                     </div> */}
-                    <p class="ui-section-faq--note">Have questions? <a href="#" role="link" aria-label="#">Contact us</a>.</p>
+
+                    {/* <p class="ui-section-faq--note">Have questions? <a href="#" role="link" aria-label="#">Contact us</a>.</p> */}
                 </div>
             </section>
             <section class="ui-section-close">
@@ -186,7 +187,7 @@ export default function Home2() {
                 <div class="ui-section-close__layout ui-layout-flex">
                     <div>
                     <h2>Ready to start?</h2>
-                    <p class="ui-text-intro">Lorem ipsum dolor sit amet consectetur.</p>
+                    {/* <p class="ui-text-intro">Lorem ipsum dolor sit amet consectetur.</p> */}
                     </div>
                     {/* <!-- CTA --> */}
                     <div class="ui-component-cta ui-layout-flex">
