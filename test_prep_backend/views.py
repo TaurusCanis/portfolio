@@ -62,14 +62,12 @@ class TestPrepStudentUserViewSet(viewsets.ModelViewSet):
 
     def get_object(self):
         user = TestPrepStudentUser.objects.get(user=self.request.user)
-        print(user)
         return user
 
     def get_queryset(self):
         try:
             user = TestPrepStudentUser.objects.filter(user=self.request.user)
-            print("user: ", user)
-            return user
+            return TestPrepStudentUserSerializer(user).data
         except:
             return TestPrepStudentUser.objects.all()
 
@@ -78,7 +76,7 @@ class TestViewSet(viewsets.ModelViewSet):
     CRUD actions for TestQuestion objects/querysets
     """
     serializer_class = TestSerializer
-    queryset = Test.objects.all()
+    queryset = Test.objects.all().order_by("id")
     permission_classes = [IsAuthenticated]
 
 class TestQuestionViewSet(viewsets.ModelViewSet):

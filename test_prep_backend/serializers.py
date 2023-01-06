@@ -15,6 +15,7 @@ class TestPrepStudentUserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_existing_attempts_for_tests(self, test_prep_user):
+        print("FUCK YOU")
         return StudentTestAttemptSerializer(test_prep_user.student_test_attempts.all(),many=True).data
 
     # def get_completed_test_attempts(self, test_prep_user):
