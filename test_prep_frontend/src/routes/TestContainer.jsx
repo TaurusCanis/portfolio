@@ -190,7 +190,7 @@ export default function TestContainer() {
                         <Timer timeLimit={timeLimit} />
                     </div>
                     
-                    <MathJax>
+                    <MathJax dynamic={true}>
                     <TestQuestion 
                         currentIndex={currentIndex} 
                         question={questions[currentIndex]} 
