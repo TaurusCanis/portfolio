@@ -1,0 +1,327 @@
+:root {
+    --nav-height: 40px;
+  }
+
+html,body {
+    height: calc(100% - var(--nav-height));
+}
+
+#root {
+    height: 100%;
+}
+
+main {
+    /* min-height: calc(100vh - var(--nav-height)); */
+    height: 100%;
+    /* justify-content: space-between; */
+}
+
+nav {
+    height: var(--nav-height);
+    background-color: #5EAD74;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+}
+
+.nav-link {
+    margin: 5px;
+}
+
+.container-v, .button-container-v {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.container-h {
+    display: flex;
+}
+
+/* .container-h,  */
+nav, .test-questions-buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.test-questions-buttons {
+    align-self: flex-start;
+}
+
+.heading, .center, .button-container-v  {
+    align-self: center;
+}
+
+.center-v {
+    justify-content: center;
+}
+
+.test-list-item {
+    padding: 1.5em;
+}
+
+.test-list-item > span {
+    padding: .5em;
+}
+
+.space-around {
+    justify-content: space-around;
+}
+
+.button-container-v {
+    width: 40%;
+}
+
+.button-container-v button {
+    margin: 10px 0;
+}
+
+.test-question-button {
+    margin: 5px;
+}
+
+.question-text, .answer-options-container, .reading-answer-options-container {
+    margin: 2.5%;
+    justify-content: center;
+    width: 40%;
+}
+
+.question-text {
+    /* width: 50%; */
+    display: flex;
+    flex-direction: row;
+}
+
+.reading-answer-options-container {
+    width: 100%;
+}
+
+.reading-passage {
+    width: 45%;
+}
+
+.dashboard {
+    justify-content: center;
+}
+
+.center-heading {
+    text-align: center;
+}
+
+.body-div {
+    height: calc(100% - var(--nav-height));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.test-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: inherit;
+    margin: .5em 1.5em;
+}
+
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+}
+
+.answer-option, .answer-option-result {
+    display: flex;
+    margin: .25em;
+}
+
+.answer-option-result {
+    margin: .5em;
+}
+
+.answer-option input[type="radio"] {
+    opacity: 0;
+    width: 0;
+    position: fixed;
+}
+
+.answer-option-label {
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+}
+
+.answer-option-label:hover {
+    background-color: green;
+}
+
+.answer-options input[type="radio"]:checked + .answer-option-label {
+    background-color: green;
+    opacity: 90%;
+}
+
+.answer-option-text {
+    /* vertical-align: middle; */
+    display: flex;
+    align-items: center;
+    margin-left: .25em;
+}
+
+.directional-btn-container {
+    justify-content: space-between;
+}
+
+.question-number {
+    margin-right: .5em;
+}
+
+.reading-container {
+    width: 50%;
+    padding: 1em;
+}
+
+.section-btns, .response-table-data {
+    text-align: center;
+}
+
+.section-btns > button {
+    margin: 1em;
+}
+
+.directional-btn-container {
+    margin: 1em;
+}
+
+.scores {
+    justify-content: center;
+}
+
+.scores * {
+    margin: 1em;
+}
+
+.timer {
+    border: 1px solid black;
+    padding: 1em;
+    margin: .5em;
+    width: 10%;
+}
+
+.flex-flex {
+    display: flex;
+  }
+  
+  .align-center {
+    align-items: center; 
+  }
+  
+  .padding-bottom--24 {
+    padding-bottom: 24px;
+  }
+  .padding-horizontal--48 {
+    padding: 48px;
+  }
+  .padding-bottom--15 {
+    padding-bottom: 15px;
+  }
+  
+  .formbg {
+    margin: 0px auto;
+    width: 100%;
+    max-width: 448px;
+    background: white;
+    border-radius: 4px;
+    box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
+  }
+  
+  span {
+    display: block;
+    font-size: 20px;
+    line-height: 28px;
+    color: #1a1f36;
+  }
+  label {
+    margin-bottom: 10px;
+  }
+  .reset-pass a,label {
+    font-size: 14px;
+    font-weight: 600;
+    display: block;
+  }
+  .reset-pass > a {
+    text-align: right;
+    margin-bottom: 10px;
+  }
+  .grid--50-50 {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: center;
+  }
+  
+  .field input {
+    font-size: 16px;
+    line-height: 28px;
+    padding: 8px 16px;
+    width: 100%;
+    min-height: 44px;
+    border: unset;
+    border-radius: 4px;
+    outline-color: rgb(84 105 212 / 0.5);
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(60, 66, 87, 0.16) 0px 0px 0px 1px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+  }
+  
+  input[type="submit"] {
+    background-color: rgb(84, 105, 212);
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, 
+                rgb(84, 105, 212) 0px 0px 0px 1px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
+                rgba(60, 66, 87, 0.08) 0px 2px 5px 0px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .field-checkbox input {
+    width: 20px;
+    height: 15px;
+    margin-right: 5px; 
+    box-shadow: unset;
+    min-height: unset;
+  }
+  .field-checkbox label {
+    display: flex;
+    align-items: center;
+    margin: 0;
+  }
+  a.ssolink {
+    display: block;
+    text-align: center;
+    font-weight: 600;
+  }
+  
+  .form-display {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: inherit;
+  }
