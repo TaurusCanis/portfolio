@@ -39,9 +39,9 @@ urlpatterns = [
     path('tracker-api/', include(tracker_router.router.urls)),
     path('tracker-api/', include('tutor_tracker_backend.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    re_path(r'^ecommerce/$', render_react_ecommerce),
-    re_path(r'^tracker/$', render_react_tracker),
-    re_path(r'^testprep/$', render_react_testprep),
+    re_path(r'^ecommerce/(.*/)?$', render_react_ecommerce),
+    re_path(r'^tracker/(.*/)?$', render_react_tracker),
+    re_path(r'^testprep/(.*/)?$', render_react_testprep),
     path('test-prep-api/', include(test_prep.router.urls)),
     path('test-prep-api/', include('test_prep_backend.urls')),
 ]
