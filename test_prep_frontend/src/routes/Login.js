@@ -21,6 +21,7 @@ export default function LoginComponent() {
             <div class="formbg">
                 <div class="formbg-inner padding-horizontal--48">
                 <span class="padding-bottom--15">Sign in to your account</span>
+                <span className="padding-bottom--15">To Demo, sign-in with username "Chuck" and password "Berry"</span>
                 <form id="stripe-login" onSubmit={handleSubmit}>
                     <div class="field padding-bottom--24">
                     <input type="text" name="username" placeholder="Username"
