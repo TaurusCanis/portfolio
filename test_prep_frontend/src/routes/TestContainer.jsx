@@ -27,6 +27,10 @@ export default function TestContainer() {
     const [testAttempt, setTestAttempt] = useState();
     const [timeLimit, setTimeLimit] = useState();
 
+    let readingPassagesLoaded = params.sectionName != 'reading';
+    
+    let questionsLoaded = false;
+
     useEffect(() => {
         fetch(`${BASE_URL}testquestions?test_id=${params.testId}&section=${params.sectionName}`, {
             method: "GET"
@@ -44,8 +48,15 @@ export default function TestContainer() {
         .then(length => {
             console.log("LENGTH: ", length);
             setUserResponses(Array(length).fill(-1));
-            setIsLoading(false);
+            questionsLoaded = true;
+            return;
         })
+        .then(() => {
+            console.log('readingPassagesLoaded: ', readingPassagesLoaded);
+            console.log('questionsLoaded: ', questionsLoaded);
+            console.log('questionsLoaded && readingPassagesLoaded: ', questionsLoaded && readingPassagesLoaded);
+            setIsLoading(!(questionsLoaded && readingPassagesLoaded));
+        });
     }, []);
 
     useEffect(() => {
@@ -59,7 +70,14 @@ export default function TestContainer() {
             .then(json=> {
                 console.log("PASSAGES FOR TEST: ", json)
                 setReadingPassages(json);
+                readingPassagesLoaded = true;
                 return json;
+            })
+            .then(() => {
+                console.log('readingPassagesLoaded: ', readingPassagesLoaded);
+                console.log('questionsLoaded: ', questionsLoaded);
+                console.log('questionsLoaded && readingPassagesLoaded: ', questionsLoaded && readingPassagesLoaded);
+                setIsLoading(!(questionsLoaded && readingPassagesLoaded));
             });
         }
     }, []);
@@ -199,6 +217,7 @@ export default function TestContainer() {
                         selectedAnswer={selectedAnswer}
                         passage={readingPassages[currentPassageIndex]}
                         isLoading={isLoading}
+                        section={params.sectionName}
                     />
                     </MathJax>
                     <div className="container-h directional-btn-container">

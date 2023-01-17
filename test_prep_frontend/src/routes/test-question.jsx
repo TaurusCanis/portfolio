@@ -5,7 +5,7 @@ import RegularQuestion from "../components/RegularQuestion";
 import ReadingQuestion from "../components/ReadingQuestion";
 
 export default function TestQuestion({ currentIndex, question, updateUserResponse, userResponses, selectedAnswer, section, passage, isLoading }) {
-    console.log("section******: ", question.section)
+    console.log("question******: ", question)
     return (
         <>
         { !isLoading &&
