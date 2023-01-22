@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AppContext from "../AppContext";
+import Button from "../components/Button";
 
 export default function TestsList() {
     const [testIds, setTestIds] = useState([]);
@@ -73,9 +74,12 @@ export default function TestsList() {
                             test.test_attempt.length == 0 ?
                             <div className="test-list-item">
                                 <span>Test {test.id}</span>
-                                <button onClick={(e) => navigateTo(e, `${test.id}`)}>
+                                <Button onClick={(e) => navigateTo(e, `${test.id}`)} className="center">
                                     Begin
-                                </button>
+                                </Button>
+                                {/* <button onClick={(e) => navigateTo(e, `${test.id}`)}>
+                                    Begin
+                                </button> */}
                             </div>
                             :
                             <>
@@ -83,16 +87,22 @@ export default function TestsList() {
                                 test.test_attempt[0].is_completed ?
                                 <div className="test-list-item">
                                     <span>Test {test.id}</span>
-                                    <button onClick={(e) => navigateTo(e, `${test.id}/results/`)}>
+                                    <Button onClick={(e) => navigateTo(e, `${test.id}/results/`)} className="center">
                                         View Results
-                                    </button>
+                                    </Button>
+                                    {/* <button onClick={(e) => navigateTo(e, `${test.id}/results/`)}>
+                                        View Results
+                                    </button> */}
                                 </div> 
                                 :
                                 <div className="test-list-item">
                                     <span>Test {test.id}</span>
-                                    <button onClick={(e) => navigateTo(e, `${test.id}`)}>
+                                    <Button onClick={(e) => navigateTo(e, `${test.id}`)} className="center">
                                         Resume
-                                    </button>
+                                    </Button>
+                                    {/* <button onClick={(e) => navigateTo(e, `${test.id}`)}>
+                                        Resume
+                                    </button> */}
                                 </div>
                             }
                             </>

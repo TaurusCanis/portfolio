@@ -8,6 +8,8 @@ import { MathJax } from "better-react-mathjax";
 import { useContext } from "react";
 import AppContext from "../AppContext";
 import Timer from "../components/Timer";
+import Button from "../components/Button";
+import DirectionalButton from "../components/DirectionalButton";
 
 export default function TestContainer() {
 
@@ -26,6 +28,7 @@ export default function TestContainer() {
     const { BASE_URL, authTokens } = useContext(AppContext);
     const [testAttempt, setTestAttempt] = useState();
     const [timeLimit, setTimeLimit] = useState();
+    const [timeHasExpired, setTimeHasExpired] = useState(false);
 
     let readingPassagesLoaded = params.sectionName != 'reading';
     
@@ -196,43 +199,61 @@ export default function TestContainer() {
     }
 
     return (
-        <div className="test-div">
-            { !isLoading &&
-                    <>
-                    <div className="container-h">
-                        <QuestionsNavigationButton 
-                            quantity={questions.length} 
+        <div className="container-h width-inherit test-container">
+            {/* <button onClick={() => updateQuestion({direction:"last"})}>
+                {"<"}
+            </button> */}
+            <DirectionalButton onClick={() => updateQuestion({direction:"last"})}>
+                {"<"}
+            </DirectionalButton>
+            <div className="test-div">
+                { !isLoading &&
+                        <>
+                        <div className="container-h">
+                            <QuestionsNavigationButton 
+                                quantity={questions.length} 
+                                currentIndex={currentIndex} 
+                                updateQuestion={updateQuestion} 
+                            />
+                            <Timer timeLimit={timeLimit} setTimeHasExpired={setTimeHasExpired} submitTest={submitTest}/>
+                        </div>
+                        
+                        <MathJax dynamic={true}>
+                        <TestQuestion 
                             currentIndex={currentIndex} 
-                            updateQuestion={updateQuestion} 
+                            question={questions[currentIndex]} 
+                            userResponses={userResponses} 
+                            updateUserResponse={updateUserResponse} 
+                            selectedAnswer={selectedAnswer}
+                            passage={readingPassages[currentPassageIndex]}
+                            isLoading={isLoading}
+                            section={params.sectionName}
                         />
-                        <Timer timeLimit={timeLimit} />
-                    </div>
-                    
-                    <MathJax dynamic={true}>
-                    <TestQuestion 
-                        currentIndex={currentIndex} 
-                        question={questions[currentIndex]} 
-                        userResponses={userResponses} 
-                        updateUserResponse={updateUserResponse} 
-                        selectedAnswer={selectedAnswer}
-                        passage={readingPassages[currentPassageIndex]}
-                        isLoading={isLoading}
-                        section={params.sectionName}
-                    />
-                    </MathJax>
-                    <div className="container-h directional-btn-container">
-                        <button onClick={() => updateQuestion({direction:"last"})}>
-                            Previous
-                        </button>
-                        <button onClick={submitTest}>
-                            Submit
-                        </button>
-                        <button onClick={() => updateQuestion({direction:"next"})}>
-                            Next
-                        </button>
-                    </div>
-                    </>
-            }
+                        </MathJax>
+                        <Button onClick={submitTest} className="center">
+                                Submit  
+                            </Button>
+                        {/* <div className="container-h directional-btn-container">
+                            <button onClick={() => updateQuestion({direction:"last"})}>
+                                Previous
+                            </button>
+                            
+                            <button onClick={submitTest}>
+                                Submit
+                            </button>
+                            <button onClick={() => updateQuestion({direction:"next"})}>
+                                Next
+                            </button>
+                        </div> */}
+                        </>
+                }
+            </div>
+            <DirectionalButton onClick={() => updateQuestion({direction:"next"})}>
+                {">"}
+            </DirectionalButton>
+            {/* <button onClick={() => updateQuestion({direction:"next"})}>
+                >
+            </button> */}
         </div>
     );
 }

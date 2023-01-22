@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import AppContext from "../AppContext";
 import testData from "../practice_tests/SSAT_Practice_Test_1_Official.json";
+import Button from "../components/Button";
 
 export default function TestDetail() {
     const params = useParams();
@@ -93,9 +94,12 @@ export default function TestDetail() {
                     <div className="button-container-v">
                         {
                             sections.map((section, i) => (
-                                <button onClick={(e) => handleSubmit(e, section)} disabled={inactiveSections.includes(section)} key={i}>
+                                <Button onClick={(e) => handleSubmit(e, section)} disabled={inactiveSections.includes(section)} key={i} className="center">
                                     {formatSection(section)}
-                                </button>
+                                </Button>
+                                // <button onClick={(e) => handleSubmit(e, section)} disabled={inactiveSections.includes(section)} key={i}>
+                                //     {formatSection(section)}
+                                // </button>
                             ))
                         }
                     </div>
@@ -104,7 +108,12 @@ export default function TestDetail() {
             :
             <div className="container-v center">
                 <h2 className="center-heading">Test {params.testId} Results</h2>
-                <button onClick={() => navigate(`tests/${params.testId}/results`)} className="center">View Details</button>
+                <Button onClick={() => navigate(`tests/${params.testId}/results`)} className="center">
+                    View Details
+                </Button>
+                {/* <button onClick={() => navigate(`tests/${params.testId}/results`)} className="center">
+                    View Details
+                </button> */}
             </div>
             }
         </>

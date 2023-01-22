@@ -7,7 +7,7 @@ export default function QuestionsNavigationButton({ quantity, currentIndex, upda
         questionButtons.push(
             <button 
                 onClick={() => updateQuestion({index:i})}
-                className={currentIndex == i ? "selected test-question-button" : "test-question-button" }
+                className={currentIndex == i ? "test-question-button-selected" : "test-question-button" }
             >
                 {i + 1} 
             </button>

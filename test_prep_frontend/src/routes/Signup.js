@@ -22,7 +22,7 @@ export default function SignupComponent() {
             <div class="formbg-outer">
             <div class="formbg">
                 <div class="formbg-inner padding-horizontal--48">
-                <span class="padding-bottom--15">Sign up for an account</span>
+                <span class="padding-bottom--15 span-form">Sign up for an account</span>
                 <form id="stripe-login" onSubmit={handleSubmit}>
                     <div class="field padding-bottom--24">
                     <input type="text" name="first_name" placeholder="First Name"

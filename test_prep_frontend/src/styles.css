@@ -84,6 +84,11 @@ nav, .test-questions-buttons {
     margin: 5px;
 }
 
+.test-question-button-selected {
+    background-color: #5EAD74;
+    color: white;
+}
+
 .question-text, .answer-options-container, .reading-answer-options-container {
     margin: 2.5%;
     justify-content: center;
@@ -120,12 +125,20 @@ nav, .test-questions-buttons {
     align-items: center;
 }
 
+.test-container {
+    overflow: scroll;
+    min-height: calc(100% + var(--nav-height));
+}
+
 .test-div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: inherit;
+    /* height: calc(100vh - var(--nav-height)); */
+    /* min-height: inherit; */
+    width: 100%;
     margin: .5em 1.5em;
+    /* overflow: scroll; */
 }
 
 .correct {
@@ -245,7 +258,7 @@ nav, .test-questions-buttons {
     box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
   }
   
-  span {
+  .span-form {
     display: block;
     font-size: 20px;
     line-height: 28px;
@@ -325,3 +338,51 @@ nav, .test-questions-buttons {
     justify-content: center;
     height: inherit;
   }
+
+  .button-primary {
+    border-radius: 25px;
+    border-color: #5EAD74;
+    border: 4px double;
+    width: 15em;
+    padding: 1em 0.5em;
+    background-color: #6BC785;
+    color: white;
+    font-size: large; 
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0.5em;
+    -webkit-transition: all 0.15s; 
+    -moz-transition: all 0.15s; 
+    -o-transition: all 0.15s; 
+    transition: all 0.15s; 
+  }
+
+  .button-primary:hover {
+    background-color: #5EAD74;
+  }
+
+  .directional-btn {
+    border-color: #5EAD74;
+    /* border: 4px double; */
+    /* width: 15em; */
+    /* padding: 1em 0.5em; */
+    background-color: #5EAD74;
+    color: white;
+    font-size: large; 
+    font-weight: bold;
+    cursor: pointer;
+    /* margin: 0.5em; */
+    -webkit-transition: all 0.15s; 
+    -moz-transition: all 0.15s; 
+    -o-transition: all 0.15s; 
+    transition: all 0.15s; 
+  }
+
+  .directional-btn:hover {
+    background-color: #6BC785;
+  }
+
+  .height-inherit {
+    height: inherit;
+  }
+  

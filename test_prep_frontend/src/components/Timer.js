@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function Timer({ timeLimit }) {
+export default function Timer({ timeLimit, setTimeHasExpired, submitTest }) {
     let d1;
     let d2;
     let difference;
@@ -24,7 +24,7 @@ export default function Timer({ timeLimit }) {
 
     function startTimer(duration, setTime) {
         var start = Date.now(),
-            diff,
+            diff = duration,
             minutes,
             seconds;
         function timer() {
@@ -44,12 +44,15 @@ export default function Timer({ timeLimit }) {
             if (diff <= 0) {
                 // add one second so that the count down starts at the full duration
                 // example 05:00 not 04:59
-                start = Date.now() + 1000;
+                // start = Date.now() + 1000;
+                clearInterval(timerInterval);
+                submitTest();
+                
             }
         };
         // we don't want to wait a full second before the timer starts
         timer();
-        setInterval(timer, 250);
+        let timerInterval = setInterval(timer, 250);
     }
 
     return (

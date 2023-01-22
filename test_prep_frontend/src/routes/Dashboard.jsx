@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AppContext from "../AppContext";
+import Button from "../components/Button";
 
 export default function Dashboard() {
     const [userData, setUserData] = useState();
@@ -47,32 +48,46 @@ export default function Dashboard() {
             <>
             { inProgressTestAttempts.length > 0 ?
                 <>
-                <button onClick={() => navigate("/tests")} className="center">
+                <Button onClick={() => navigate("/tests")} className="center">
                     Take a Practice Test
-                </button>
+                </Button>
+                {/* <button onClick={() => navigate("/tests")} className="center">
+                    Take a Practice Test
+                </button> */}
                 </>
                 :
                 <>
                 { completedTestAttempts.length == 0 ?
                     <>
-                        <h2>You haven't taken a test yet!</h2>
-                        <button onClick={() => navigate("/tests")} className="center">
+                        {/* <h2>You haven't taken a test yet!</h2> */}
+                        <Button onClick={() => navigate("/tests")} className="center">
                             Take a Practice Test
-                        </button>
+                        </Button>
+                        {/* <button onClick={() => navigate("/tests")} className="center">
+                            Take a Practice Test
+                        </button> */}
                     </>
                     :
                     <>
                         <div className="container-v center-v">
-                            <button onClick={() => navigate("/tests")} className="center">
+                            <Button onClick={() => navigate("/tests")} className="center">
                                 Take Another Practice Test
-                            </button>
+                            </Button>
+                            {/* <button onClick={() => navigate("/tests")} className="center">
+                                Take Another Practice Test
+                            </button> */}
                         </div>
                         <div className="container-v center">
                             <h3 className="center-heading">Completed Tests</h3>
                             {completedTestAttempts.map(t => (
                                 <div>
                                     <span><span>Practice Test</span>  <span>{t.test}</span></span>
-                                    <button onClick={() => navigate(`/tests/${t.test}/results/`)}>View Results</button>
+                                    <Button onClick={() => navigate(`/tests/${t.test}/results/`)}>
+                                        View Results
+                                    </Button>
+                                    {/* <button onClick={() => navigate(`/tests/${t.test}/results/`)}>
+                                        View Results
+                                    </button> */}
                                 </div>
                             ))}
                         </div>

@@ -7,7 +7,7 @@ import AppContext from "../AppContext";
 // import Message from "./Message";
 
 export default function LoginComponent() {
-    const [fields, handleFieldChange] = useFormFields({ username: "", password: "" });
+    const [fields, handleFieldChange] = useFormFields({ username: "Chuck", password: "Berry" });
     const { loginUser } = useContext(AppContext);
 
     function handleSubmit(e) {
@@ -20,8 +20,8 @@ export default function LoginComponent() {
             <div class="formbg-outer">
             <div class="formbg">
                 <div class="formbg-inner padding-horizontal--48">
-                <span class="padding-bottom--15">Sign in to your account</span>
-                <span className="padding-bottom--15">To Demo, sign-in with username "Chuck" and password "Berry"</span>
+                <span class="padding-bottom--15 span-form">Sign in to your account</span>
+                <span className="padding-bottom--15 span-form">To Demo, sign-in with username "Chuck" and password "Berry"</span>
                 <form id="stripe-login" onSubmit={handleSubmit}>
                     <div class="field padding-bottom--24">
                     <input type="text" name="username" placeholder="Username"
