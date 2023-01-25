@@ -361,6 +361,11 @@ nav, .test-questions-buttons {
     background-color: #5EAD74;
   }
 
+  .button-primary:disabled {
+    background-color: #93AD9B;
+    cursor: not-allowed;
+  }
+
   .directional-btn {
     border-color: #5EAD74;
     /* border: 4px double; */
