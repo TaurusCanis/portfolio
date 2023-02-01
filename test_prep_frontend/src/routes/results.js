@@ -23,8 +23,8 @@ export default function Results() {
         })
         .then(res => res.json())
         .then(json => {
-            console.log(json);
-            setSectionResults(json[0].student_response);
+            console.log("sectionresults: ", json[0].student_test_responses);
+            setSectionResults(json[0].student_test_responses);
             setScores(json[0].scores);
             setisLoading(false);
             return json;
@@ -49,6 +49,8 @@ export default function Results() {
     }
 
     function displayQuestion(e, question_id) {
+        console.log("e: ", e);
+        console.log("question_id: ", question_id);
         fetch(`${BASE_URL}testquestions/${question_id}/`, {
             method: "GET",
             headers: {
@@ -57,7 +59,7 @@ export default function Results() {
         })
         .then(res => res.json())
         .then(json => {
-            console.log(json);
+            console.log("&&&&&: ", json);
             setCurrentQuestion(json);
             return json;
         })

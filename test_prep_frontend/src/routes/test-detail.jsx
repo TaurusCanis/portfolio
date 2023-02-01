@@ -50,8 +50,8 @@ export default function TestDetail() {
             console.log("length: ", json.length)
             if (json.length > 0) {
                 setTestAttempt(json[0]);
-                if (json[0].student_response.length > 0) {
-                    setInactiveSections(json[0].student_response.map(response => response.section));
+                if (json[0].student_test_responses.length > 0) {
+                    setInactiveSections(json[0].student_test_responses.map(response => response.section));
                 }
             }
             setIsLoading(false);

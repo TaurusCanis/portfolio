@@ -114,7 +114,7 @@ export default function TestContainer() {
         })
         .then(res => res.json())
         .then(json => {
-            console.log("BARK: ", json);
+            console.log("BAR>>>>>>>******>>>>>>??????: ", json);
             setTestAttempt(json);
             return json;
         })
@@ -171,6 +171,7 @@ export default function TestContainer() {
         }
         console.log("REQUEST URL: ", url)
         console.log("userResponses: ", userResponses)
+        console.log("testAttempt: ", testAttempt);
         fetch(url, {
             method: method,
             body: JSON.stringify({

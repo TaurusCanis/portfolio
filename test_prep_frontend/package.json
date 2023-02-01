@@ -16,10 +16,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject",
     "relocate": "react-scripts build && rm -rf ../testprep-build && mv -f build ../testprep-build && mv ../testprep-build/index.html ../testprep-build/testprep-index.html"
-
   },
   "eslintConfig": {
     "extends": [
@@ -42,5 +41,8 @@
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
 }

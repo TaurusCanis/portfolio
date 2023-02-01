@@ -24,7 +24,7 @@ export default function Dashboard() {
     }
 
     useEffect(() => {
-        fetch(`${BASE_URL}users/`, {
+        fetch(`${BASE_URL}users/null/`, {
             method: "GET",
             headers: {
                 'Authorization': `Token ${authTokens}`
@@ -34,7 +34,7 @@ export default function Dashboard() {
         .then(json => {
             console.log(json);
             setUserData(json);
-            let [cta, ipta] = sortTestAttempts(json[0]['existing_attempts_for_tests']);
+            let [cta, ipta] = sortTestAttempts(json['student_test_attempts']);
             setCompletedTestAttempts(cta);
             setInProgessTestAttempts(ipta);
             setIsLoading(false);
