@@ -1,4 +1,4 @@
-import datetime
+import datetime, calendar
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, User
@@ -64,13 +64,10 @@ class TutorTrackerUserSerializer(serializers.ModelSerializer):
             )['revenue_this_year'] or 0
 
     def get_revenue_this_week(self, user):
-        today = self.get_today()
-        year = today.year 
-        month = today.month
-        start = today.day - today.weekday()
+        current_week = self.get_current_week()
         return Appointment.objects.filter(
             customer__user=user,
-            date_time__gte=datetime.datetime(year, month, start, 0, 0, 0),
+            date_time__gte=current_week[0],
             status__in=['C', 'X-C']).aggregate(
                 revenue_this_year=Sum('fee')
             )['revenue_this_year'] or 0
@@ -94,13 +91,10 @@ class TutorTrackerUserSerializer(serializers.ModelSerializer):
             )['payments_received_this_month'] or 0
 
     def get_payments_received_this_week(self, user):
-        today = self.get_today()
-        year = today.year 
-        month = today.month
-        start = today.day - today.weekday()
+        current_week = self.get_current_week()
         return Payment.objects.filter(
             customer__user=user,
-            date__gte=datetime.date(year, month, start)).aggregate(
+            date__gte=current_week[0]).aggregate(
                 payments_received_this_week=Sum('amount')
             )['payments_received_this_week'] or 0
 
