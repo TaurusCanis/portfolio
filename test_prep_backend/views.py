@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from rest_framework import viewsets, status
+from rest_framework import viewsets, permissions, status
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.decorators import permission_classes, action
 from rest_framework.response import Response
 from .serializers import (
     TestQuestionSerializer, ReadingPassageSerializer, TestSerializer, StudentTestAttemptSerializer,
@@ -21,19 +22,26 @@ class TestPrepStudentUserViewSet(viewsets.ModelViewSet):
     CRUD actions for TestQuestion objects/querysets
     """
     serializer_class = TestPrepStudentUserSerializer
+    queryset = TestPrepStudentUser.objects.all()
     permission_classes_by_action = {
         "default": [IsAuthenticated],
         "create": [AllowAny],
     }
 
     def get_permissions(self):
+        print("isauthenticated?: ", self.request.user.is_authenticated)
+        print("action: ", self.action)
+        # print("self.permission_classes_by_action[self.action]: ", self.permission_classes_by_action[self.action])
         try:
             # return permission_classes depending on `action`
-            return [
+            perms = [
                 permission()
                 for permission in self.permission_classes_by_action[self.action]
             ]
-        except KeyError:
+            print("perms: ", perms)
+            return perms
+        except KeyError as ke:
+            print("KEY ERROR: ", ke)
             # action is not set return default permission_classes
             return [
                 permission()
@@ -60,16 +68,27 @@ class TestPrepStudentUserViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer, user):
         serializer.save(user=user)
 
-    def get_object(self):
-        user = TestPrepStudentUser.objects.get(user=self.request.user)
-        return user
+    # def get_object(self):
+    #     print("SACK OF SHIT")
+    #     user = TestPrepStudentUser.objects.get(user=self.request.user)
+    #     print("user: ", user)
+    #     return user
 
-    def get_queryset(self):
-        try:
-            user = TestPrepStudentUser.objects.filter(user=self.request.user)
-            return TestPrepStudentUserSerializer(user).data
-        except:
-            return TestPrepStudentUser.objects.all()
+    def get_object(self):
+        print("<<<<<<---------GET_OBJECT ----------->>>>>>>")
+        return TestPrepStudentUser.objects.get(user=self.request.user)
+
+    # def get_queryset(self):
+    #     try:
+    #         print("S!!!!!!TTTT")
+    #         user = TestPrepStudentUser.objects.filter(user=self.request.user)
+    #         print("USER: ", user)
+    #         data = TestPrepStudentUserSerializer(user, many=True)
+    #         print("DATA: ", data)
+    #         return data.data
+    #     except Exception as e:
+    #         print("EXCEPTION: ", e)
+    #         return TestPrepStudentUser.objects.all()
 
 class TestViewSet(viewsets.ModelViewSet):
     """
@@ -118,7 +137,13 @@ class TestQuestionViewSet(viewsets.ModelViewSet):
         return qs
 
     def get_object(self):
-        return TestQuestion.objects.get(id=self.kwargs.get('pk'))
+        try:
+            print("KWARGS: ", self.kwargs)
+            return TestQuestion.objects.get(id=self.kwargs.get('pk'))
+        except Exception as e:
+            print("FUCK!!!!!!: ", e)
+            return 
+
 
 class ReadingPassageViewSet(viewsets.ModelViewSet):
     """
@@ -257,6 +282,8 @@ class StudentResponseViewSet(viewsets.ModelViewSet):
     queryset = StudentResponse.objects.all()
 
     def create(self, request, *args, **kwargs):
+        print("****CREATE*****")
+        print(request.data)
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         is_completed = self.perform_create(serializer)
