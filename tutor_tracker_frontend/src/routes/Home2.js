@@ -4,6 +4,7 @@ import calendar from "../img/calendar.svg";
 import student from "../img/student.svg";
 import { Link } from "react-router-dom";
 import CTA_Button from "../components/CTA_Button";
+import LoginComponent from "../components/Login";
 
 export default function Home2() {
     return (
@@ -24,7 +25,8 @@ export default function Home2() {
                     </div>
                     {/* <!-- IMAGE --> */}
                     {/* <img src="https://res.cloudinary.com/uisual/image/upload/assets/devices/ipad.png" loading="lazy" alt="#" class="ui-image-half-right" /> */}
-                    <img src={homeImage} loading="lazy" alt="#" class="ui-image-half-right" />
+                    {/* <img src={homeImage} loading="lazy" alt="#" class="ui-image-half-right" /> */}
+                    <LoginComponent />
                 </div>
                 </div>
             </section>

@@ -32,8 +32,8 @@ export default function LoginComponent() {
                     id="password" value={fields["password"]} onChange={(e) => handleFieldChange({ "password": e.target.value})}
                   />
                 </div>
-                <div class="field padding-bottom--24">
-                  <input type="submit" name="submit" value="Continue" />
+                <div class="container-v">
+                  <button className="button-primary center" type="submit" name="submit">Log In</button>
                 </div>
                 {/* <div class="reset-pass padding-bottom--24">
                     <a href="#">Forgot your password?</a>
