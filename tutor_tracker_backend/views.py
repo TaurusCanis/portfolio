@@ -38,8 +38,7 @@ class TutorTrackerUserViewSet(viewsets.ModelViewSet):
                 permission()
                 for permission in self.permission_classes_by_action[self.action]
             ]
-        except KeyError as ke:
-            print("LEY ERROR: ", ke)
+        except KeyError:
             # action is not set return default permission_classes
             return [
                 permission()
@@ -69,10 +68,7 @@ class TutorTrackerUserViewSet(viewsets.ModelViewSet):
         serializer.save(user=user)
 
     def get_object(self):
-        print("<<<<<<---------GET_OBJECT ----------->>>>>>>")
-        obj = TutorTrackerUser.objects.get(user=self.request.user)
-        print("OBJ: ", obj)
-        return obj
+        return TutorTrackerUser.objects.get(user=self.request.user)
 
 class CustomerViewSet(viewsets.ModelViewSet):
     """

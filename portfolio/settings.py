@@ -28,9 +28,9 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.getenv("DEBUG", False) == 'True'
-DEBUG = True
+DEBUG = False
 # PRODUCTION = os.getenv("PRODUCTION", True) == 'True'
-PRODUCTION = False
+PRODUCTION = True
 
 # ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(",") if PRODUCTION else ['*']
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,localhost:3000,andrewdole.com").split(",") if PRODUCTION else ["*"]
@@ -84,7 +84,6 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'tracker-build'),
             os.path.join(BASE_DIR, 'ecommerce-build'),
             os.path.join(BASE_DIR, 'testprep-build'),
-	    os.path.join(BASE_DIR, 'little-lemon-build'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -175,7 +174,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'tracker-build/static'),
     os.path.join(BASE_DIR, 'ecommerce-build/static'),
     os.path.join(BASE_DIR, 'testprep-build/static'),
-    os.path.join(BASE_DIR, 'little-lemon-build/static'),
 ]
 
 # Default primary key field type
