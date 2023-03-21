@@ -45,7 +45,7 @@ urlpatterns = [
     re_path(r'^ecommerce/(.*/)?$', render_react_ecommerce),
     re_path(r'^tracker/(.*/)?$', render_react_tracker),
     re_path(r'^testprep/(.*/)?$', render_react_testprep),
-    re_path(r'^restaurant/(.*/)?$', render_little_lemon),
+    re_path(r'^restaurant/(.*/)?$', render_react_little_lemon),
     path('test-prep-api/', include(test_prep.router.urls)),
     path('test-prep-api/', include('test_prep_backend.urls')),
 ]
