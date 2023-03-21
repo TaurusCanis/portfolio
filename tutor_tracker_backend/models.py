@@ -30,6 +30,9 @@ class TutorTrackerUser(models.Model):
     def get_next_appointment(self):
         return Appointment.objects.filter(customer__user=self, date_time__gte=self.get_date_today()).order_by("date_time").first()
 
+    def __str__(self):
+        return self.user.__str__()
+
 
 class Customer(models.Model):
     user = models.ForeignKey(TutorTrackerUser, related_name='customers', on_delete=models.CASCADE)

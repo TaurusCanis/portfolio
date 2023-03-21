@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/TaurusCanis/little-lemon/static/css/main.87c23058.css",
+    "main.js": "/TaurusCanis/little-lemon/static/js/main.a4db2b26.js",
+    "static/js/787.a2f6b77c.chunk.js": "/TaurusCanis/little-lemon/static/js/787.a2f6b77c.chunk.js",
+    "static/media/GreekSalad_Small": "/TaurusCanis/little-lemon/static/media/GreekSalad_Small.25fc793faeb3d58ed9fb",
+    "static/media/Rigatoni_small": "/TaurusCanis/little-lemon/static/media/Rigatoni_small.068e128bb7099cbae02f",
+    "static/media/Bruchetta_small": "/TaurusCanis/little-lemon/static/media/Bruchetta_small.d54e450bda5efcf06010",
+    "static/media/SmallPlates_small": "/TaurusCanis/little-lemon/static/media/SmallPlates_small.827fb0bfe6f625329f41",
+    "static/media/LittleLemonHeader_small": "/TaurusCanis/little-lemon/static/media/LittleLemonHeader_small.e68246686f716ff6e5d8",
+    "index.html": "/TaurusCanis/little-lemon/index.html",
+    "main.87c23058.css.map": "/TaurusCanis/little-lemon/static/css/main.87c23058.css.map",
+    "main.a4db2b26.js.map": "/TaurusCanis/little-lemon/static/js/main.a4db2b26.js.map",
+    "787.a2f6b77c.chunk.js.map": "/TaurusCanis/little-lemon/static/js/787.a2f6b77c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.87c23058.css",
+    "static/js/main.a4db2b26.js"
+  ]
+}
