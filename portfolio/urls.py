@@ -31,6 +31,9 @@ def render_react_tracker(request, *args, **kwargs):
 def render_react_testprep(request, *args, **kwargs):
     return render(request, "testprep-index.html")
 
+def render_react_restaurant(request, *args, **kwargs):
+    return render(request, "restaurant-index.html")
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homepage_view.IndexView.as_view()),
@@ -42,6 +45,7 @@ urlpatterns = [
     re_path(r'^ecommerce/(.*/)?$', render_react_ecommerce),
     re_path(r'^tracker/(.*/)?$', render_react_tracker),
     re_path(r'^testprep/(.*/)?$', render_react_testprep),
+    re_path(r'^restaurant/(.*/)?$', render_react_restaurant),
     path('test-prep-api/', include(test_prep.router.urls)),
     path('test-prep-api/', include('test_prep_backend.urls')),
 ]
