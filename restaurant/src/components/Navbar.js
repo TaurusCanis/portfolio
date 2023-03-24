@@ -1,15 +1,17 @@
 import { Link } from "react-router-dom";
+import { HashLink } from 'react-router-hash-link';
 
 export default function Navbar(props) {
+
 	return (
 		<nav className={props.displayMobileNav ? "show" : "hide"}>
 			<ul>
-				<li><a href="/">Home</a></li>
-				<li><a href="/#info-section">About</a></li>
-				<li><a href="/#specials">Menu</a></li>
+				<li><Link to="/">Home</Link></li>
+				<li><HashLink to="/#info-section">About</HashLink></li>
+				<li><HashLink to="/#specials">Menu</HashLink></li>
 				<li><Link to="/booking">Reservations</Link></li>
-				<li><a href="/#specials">Order Online</a></li>
-				<li><a href="/">Login</a></li>
+				<li><HashLink to="/#specials">Order Online</HashLink></li>
+				<li><Link to="/">Login</Link></li>
 			</ul>
 		</nav>
 	);

@@ -1,32 +1,10 @@
 import {useState,useReducer,useRef} from "react";
-import {fetchAPI, submitAPI} from "./bookingAPI";
+import {submitAPI} from "./bookingAPI";
 import {useNavigate} from "react-router-dom";
-
-export function updateTimes(state, action) {
-	switch(action.type) {
-		case 'change_date': {
-			const newDate = new Date(action.date + "T17:00:00Z");
-			const times = fetchAPI(newDate);
-		
-			return {
-				date: newDate,
-				times: times
-			};
-		}
-	}
-	throw Error('Unknown action: ' + action.type);
-}
-        
-export function initializeTimes() {
-	const today = new Date();
-        return { date: today, times: fetchAPI(today) };
-}
-
 
 export default function BookingForm(props) {
 	const navigate = useNavigate();
 
-        const [availableTimes, dispatch] = useReducer(updateTimes, {}, initializeTimes); 
 	const [formFields, setFormFields] = useState({
 		"res-date": new Date().toISOString().split("T")[0],
 		"res-time": "",
@@ -40,19 +18,18 @@ export default function BookingForm(props) {
 
 	const isValid = () => {
 		for (const [k, v] of Object.entries(formFields)) {
-			console.log(k, ": ", v);
 			if (!v) return false;
 		}
 		return true;
 	}
 
-	const updateGuests = (e, b) => {
-		if (b === -1 && formFields.guests === 1) return;
-		if (b === 1 && formFields.guests === 10) return;
+	const updateGuests = (e, delta) => {
+		if (delta === -1 && formFields.guests === 1) return;
+		if (delta === 1 && formFields.guests === 10) return;
 		if (e.type == "click" || (e.type == "keydown" && e.key === "Enter")) {
 			setFormFields({
 				...formFields,
-				guests: formFields.guests + b
+				guests: formFields.guests + delta
 			});
 		}
 	}	
@@ -63,7 +40,7 @@ export default function BookingForm(props) {
 			[e.target.id]: e.target.value
 		});
 		
-		dispatch({type: 'change_date', date: e.target.value});
+		props.dispatch({type: 'change_date', date: e.target.value});
 	}
 	
 	
@@ -79,16 +56,11 @@ export default function BookingForm(props) {
 			<input onChange={handleFieldChange} type="date" id="res-date" value={formFields['res-date']} />
 			<label htmlFor="res-time">Choose Time</label>
 			<select id="res-time" data-testid="res-time" onChange={(e) => setFormFields({ ...formFields, 'res-time': e.target.value })}>
-				{ availableTimes.times.map(at => (
+				{ props.availableTimes.times.map(at => (
 					<option key={at} value={at}>{at}</option>
 				))}
 			</select>		
 			<label htmlFor="guests" onClick={(e) => guestsRef.current.focus()}>Number of Guests</label>
-			{/* <select name="guests">
-				{ guestsValues.map(v => (
-					<option key={v} value={v}>{v}</option>
-				))}
-			</select> */}
 			<div id="guests">
 				<span ref={guestsRef} tabindex="0" class="guests-btn" id="guests-down" data-testid="guests-down" onClick={(e) => updateGuests(e, -1)} onKeyDown={(e) => updateGuests(e, -1)}></span>
 				<span data-testid="guests-val">{formFields.guests}</span>
