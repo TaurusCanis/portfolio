@@ -29,12 +29,12 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.getenv("DEBUG", False) == 'True'
-# DEBUG = False
-DEBUG = True
+DEBUG = False
+# DEBUG = True
 
 # PRODUCTION = os.getenv("PRODUCTION", True) == 'True'
 PRODUCTION = True
-#PRODUCTION = False
+# PRODUCTION = False
 
 # ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(",") if PRODUCTION else ['*']
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,localhost:3000,andrewdole.com").split(",") if PRODUCTION else ["*"]
