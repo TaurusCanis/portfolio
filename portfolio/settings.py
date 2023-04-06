@@ -26,13 +26,15 @@ AUTH_USER_MODEL = 'user_auth.User'
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.getenv("DEBUG", False) == 'True'
 DEBUG = False
+# DEBUG = True
 
 # PRODUCTION = os.getenv("PRODUCTION", True) == 'True'
 PRODUCTION = True
-
+#PRODUCTION = False
 
 # ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(",") if PRODUCTION else ['*']
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,localhost:3000,andrewdole.com").split(",") if PRODUCTION else ["*"]
@@ -61,8 +63,10 @@ INSTALLED_APPS = [
     'ecommerce_backend.apps.EcommerceBackendConfig',
     'tutor_tracker_backend.apps.TutorTrackerBackendConfig',
     'test_prep_backend.apps.TestPrepBackendConfig',
+    'wwe_peacock_backend.apps.WwePeacockConfig',
     'user_auth.apps.UserAuthConfig',
     'rest_framework.authtoken',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -87,6 +91,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'ecommerce-build'),
             os.path.join(BASE_DIR, 'testprep-build'),
             os.path.join(BASE_DIR, 'restaurant-build'),
+            os.path.join(BASE_DIR, 'wwe-build'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -125,15 +130,15 @@ elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
     if os.getenv("DATABASE_URL", None) is None:
         raise Exception("DATABASE_URL environment variable not defined")
     DATABASES = {
-        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
-        # 'default': {
-        #     'ENGINE': 'django.db.backends.postgresql',
-        #     'NAME': os.environ.get('DO_DB_DATABASE'),
-        #     'USER': os.environ.get('DO_DB_USERNAME'),
-        #     'PASSWORD': os.environ.get('DO_DB_PASSWORD'),
-        #     'HOST': os.environ.get('DO_DB_HOST'),
-        #     'PORT': os.environ.get('DO_DB_PORT'),
-        # }
+        # "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DO_DB_DATABASE'),
+            'USER': os.environ.get('DO_DB_USERNAME'),
+            'PASSWORD': os.environ.get('DO_DB_PASSWORD'),
+            'HOST': os.environ.get('DO_DB_HOST'),
+            'PORT': os.environ.get('DO_DB_PORT'),
+        }
     }
 
 
@@ -178,6 +183,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'ecommerce-build/static'),
     os.path.join(BASE_DIR, 'testprep-build/static'),
     os.path.join(BASE_DIR, 'restaurant-build/static'),
+    os.path.join(BASE_DIR, 'wwe-build/static'),
 ]
 
 # Default primary key field type

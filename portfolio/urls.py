@@ -34,6 +34,9 @@ def render_react_testprep(request, *args, **kwargs):
 def render_react_restaurant(request, *args, **kwargs):
     return render(request, "restaurant-index.html")
 
+def render_react_wwe(request, *args, **kwargs):
+    return render(request, "wwe-index.html")
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homepage_view.IndexView.as_view()),
@@ -46,6 +49,8 @@ urlpatterns = [
     re_path(r'^tracker/(.*/)?$', render_react_tracker),
     re_path(r'^testprep/(.*/)?$', render_react_testprep),
     re_path(r'^restaurant/(.*/)?$', render_react_restaurant),
+    re_path(r'^wwe/(.*/)?$', render_react_wwe),
     path('test-prep-api/', include(test_prep.router.urls)),
     path('test-prep-api/', include('test_prep_backend.urls')),
+    path('wwe-peacock-api/', include('wwe_peacock_backend.urls')),
 ]
