@@ -35,6 +35,8 @@ that demonstrate my full-stack development capabilities.
 - **Test Prep**:
   - A web app for standardized test preparation focusing on the SSAT, built with React and Django REST Framework.
   - [Live Demo](https://andrewdole.com/testprep/)
+  - [Read More](https://github.com/TaurusCanis/portfolio/blob/main/test_prep_frontend/README.md)
+  - [Repo](https://github.com/TaurusCanis/portfolio/tree/main/test_prep_frontend)
 
 - **Tutor Tracker**:
   - A dashboard and student management system for self-employed tutors.
