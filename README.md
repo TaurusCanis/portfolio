@@ -42,6 +42,9 @@ that demonstrate my full-stack development capabilities.
 - **Tutor Tracker**:
   - A dashboard and student management system for self-employed tutors.
   - [Live Demo](https://andrewdole.com/tracker/)
+  - [Read More](https://github.com/TaurusCanis/portfolio/blob/main/tutor_tracker_frontend/README.md)
+  - [Frontend Repo](https://github.com/TaurusCanis/portfolio/tree/main/tutor_tracker_frontend)
+  - [Backend Repo](https://github.com/TaurusCanis/portfolio/tree/main/tutor_tracker_backend)
 
 - **WWE-Peacock**:
   - A search tool for finding the Peacock URL for WWE Premium Live Events.
