@@ -24,11 +24,13 @@ that demonstrate my full-stack development capabilities.
 - **Homepage**:
   - A simple, static webpage for my portfolio using HTML, CSS, and JS.
   - [Live Demo](https://andrewdole.com/)
+  - [Repo](https://github.com/TaurusCanis/portfolio/tree/main/homepage)
 
 - **Little Lemon Restaurant**:
   - A website project for the Meta Frontend Web Developer Specialization on Coursera.
   - [Live Demo](https://andrewdole.com/restaurant/)
   - [Read More](./restaurant/README.md)
+  - [Repo](https://github.com/TaurusCanis/portfolio/tree/main/restaurant)
 
 - **Test Prep**:
   - A web app for standardized test preparation focusing on the SSAT, built with React and Django REST Framework.
