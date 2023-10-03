@@ -37,7 +37,7 @@ that demonstrate my full-stack development capabilities.
   - [Live Demo](https://andrewdole.com/testprep/)
   - [Read More](https://github.com/TaurusCanis/portfolio/blob/main/test_prep_frontend/README.md)
   - [Frontend Repo](https://github.com/TaurusCanis/portfolio/tree/main/test_prep_frontend)
-  - [Backend Reop](https://github.com/TaurusCanis/portfolio/tree/main/test_prep_backend)
+  - [Backend Repo](https://github.com/TaurusCanis/portfolio/tree/main/test_prep_backend)
 
 - **Tutor Tracker**:
   - A dashboard and student management system for self-employed tutors.
