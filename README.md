@@ -17,6 +17,9 @@ that demonstrate my full-stack development capabilities.
 - **E-Commerce**:
   - An online store for a music project built with React and Django REST Framework, integrated with Stripe API for payment processing.
   - [Live Demo](https://andrewdole.com/ecommerce/)
+  - [Read More](https://github.com/TaurusCanis/portfolio/blob/main/ecommerce-frontend/README.md)
+  - [Frontend Repo](https://github.com/TaurusCanis/portfolio/tree/main/ecommerce-frontend)
+  - [Backend Repo](https://github.com/TaurusCanis/portfolio/tree/main/ecommerce_backend)
 
 - **Homepage**:
   - A simple, static webpage for my portfolio using HTML, CSS, and JS.
