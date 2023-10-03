@@ -1,70 +1,26 @@
-# Getting Started with Create React App
+# WWE-Peacock Premium Live Event Search
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+WWE-Peacock Premium Live Event Search is a specialized tool aimed at making the search for specific WWE matches on Peacock a breeze. Given the vast library, finding a particular match can be a tad challenging especially if you're unsure of the specific Premium Live Event it's associated with. This tool steps in to alleviate this problem by allowing users to search for WWE Premium Live Event videos on Peacock using different criteria.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Event Search**: Users can search for WWE Premium Live Event videos on Peacock by city, venue, or event name, making the process of finding a specific match quicker and more straightforward.
 
-### `npm start`
+## Technologies
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Frontend**: React
+- **Backend**: Django Rest Framework
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Challenges Encountered
 
-### `npm test`
+- Obtaining and cleaning the data proved to be quite challenging which, in turn, has delayed the implementation of search functionality by match participants or match stipulation.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Future Improvements
 
-### `npm run build`
+- Enhancements on the horizon include the ability to search by match participants, match stipulation, and a date range, further simplifying the user's search experience.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Project Status
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- This project is currently on hold.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+WWE-Peacock Premium Live Event Search is all about simplifying the user's search experience on Peacock when it comes to finding specific WWE matches. While the project is on hold at the moment, the envisioned features aim to provide a more robust and user-friendly search experience.
